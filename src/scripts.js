@@ -1,4 +1,5 @@
 function createTask(title, startDate, dueDate, priority, note) {
+    const id = crypto.randomUUID();
     let taskTitle = title;
     let taskStartDate = startDate;
     let taskDueDate = dueDate;
@@ -6,6 +7,10 @@ function createTask(title, startDate, dueDate, priority, note) {
     let taskNote = note;
     let complete = false;
     let subtasks = [];
+
+    function getID(){
+        return id;
+    }
 
     function getTitle() {
         return taskTitle;
@@ -55,7 +60,10 @@ function createTask(title, startDate, dueDate, priority, note) {
         subtasks.push(subtask);
     }
 
+    //need a delete subtask function here
+
     return {
+        getID;
         getTitle,
         setTitle,
         getStartDate,
@@ -72,8 +80,13 @@ function createTask(title, startDate, dueDate, priority, note) {
 }
 
 function createTodoList(title) {
+    const id = crypto.randomUUID();
     let toDoTitle = title;
     let toDoTasks = [];
+
+    function getID(){
+        return id;
+    }
 
     function getTitle() {
         return toDoTitle;
@@ -91,7 +104,26 @@ function createTodoList(title) {
         toDoTasks.push(task);
     }
 
-    return { getTitle, setTitle, getTasks, addTask };
+    //need a delete task function here
+
+    return { getID, getTitle, setTitle, getTasks, addTask };
 }
+
+
+
+
+
+const app = (() => {
+    const lists = [];
+
+
+
+
+
+})();
+
+
+
+
 
 export { createTask, createTodoList };
