@@ -1,48 +1,58 @@
 function createTask(title, startDate, dueDate, priority, note) {
-    let title = title;
-    let startDate = startDate;
-    let dueDate = dueDate;
-    let priority = priority;
-    let note = note;
+    let taskTitle = title;
+    let taskStartDate = startDate;
+    let taskDueDate = dueDate;
+    let taskPriority = priority;
+    let taskNote = note;
+    let complete = false;
+    let subtasks = [];
 
     function getTitle() {
-        return title;
+        return taskTitle;
     }
 
     function setTitle(newTitle) {
-        title = newTitle;
+        taskTitle = newTitle;
     }
 
     function getStartDate() {
-        return startDate;
+        return taskStartDate;
     }
 
     function setStartDate(newDate) {
-        startDate = newDate;
+        taskStartDate = newDate;
     }
 
     function getDueDate() {
-        return dueDate;
+        return taskDueDate;
     }
 
     function setDueDate(newDate) {
-        dueDate = newDate;
+        taskDueDate = newDate;
     }
 
     function getPriority() {
-        return priority;
+        return taskPriority;
     }
 
     function setPriority(newPriority) {
-        priority = newPriority;
+        taskPriority = newPriority;
     }
 
     function getNote() {
-        return note;
+        return taskNote;
     }
 
     function setNote(newNote) {
-        note = newNote
+        taskNote = newNote
+    }
+
+    function toggleComplete() {
+        complete = !complete;
+    }
+
+    function addSubTask(subtask) {
+        subtasks.push(subtask);
     }
 
     return {
@@ -55,27 +65,33 @@ function createTask(title, startDate, dueDate, priority, note) {
         getPriority,
         setPriority,
         getNote,
-        setNote
+        setNote,
+        toggleComplete,
+        addSubTask,
     };
 }
 
-function createTodoList(title, tasks) {
-    let title = title;
-    let tasks = tasks;
+function createTodoList(title) {
+    let toDoTitle = title;
+    let toDoTasks = [];
 
     function getTitle() {
-        return title;
+        return toDoTitle;
     }
 
     function setTitle(newTitle) {
-        title = newTitle;
+        toDoTitle = newTitle;
     }
 
     function getTasks() {
-        return tasks;
+        return toDoTasks;
     }
 
-    return { getTitle, setTitle, getTasks };
+    function addTask(task) {
+        toDoTasks.push(task);
+    }
+
+    return { getTitle, setTitle, getTasks, addTask };
 }
 
 export { createTask, createTodoList };
