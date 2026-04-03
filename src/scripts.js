@@ -56,8 +56,8 @@ function createTask(title, startDate, dueDate, priority, note) {
         complete = !complete;
     }
 
-    function addSubTask(subtask) {
-        subtasks.push(subtask);
+    function addSubTask(subtaskTitle) {
+        subtasks.push(createSubTask(subtaskTitle));
     }
 
     function removeSubTask(subtask) {
@@ -82,10 +82,29 @@ function createTask(title, startDate, dueDate, priority, note) {
     };
 }
 
+function createSubTask(title) {
+    const id = crypto.randomUUID();
+    let subTaskTitle = title;
+
+    function getID() {
+        return id;
+    }
+
+    function getTitle() {
+        return subTaskTitle;
+    }
+
+    function setTitle(newTitle) {
+        subTaskTitle = newTitle;
+    }
+
+    return { getID, getTitle, setTitle }
+}
+
 function createTodoList(title) {
     const id = crypto.randomUUID();
     let toDoTitle = title;
-    let toDoTasks = [];
+    let tasks = [];
 
     function getID() {
         return id;
@@ -100,34 +119,30 @@ function createTodoList(title) {
     }
 
     function getTasks() {
-        return toDoTasks;
+        return tasks;
     }
 
     function addTask(task) {
-        toDoTasks.push(task);
+        tasks.push(task);
     }
 
     function removeTask(task) {
-        removeItemFromArray(task, toDoTasks);
+        removeItemFromArray(task, tasks);
     }
 
     return { getID, getTitle, setTitle, getTasks, addTask, removeTask };
 }
 
 function removeItemFromArray(item, array) {
-    index = array.findIndex(element => element.getID() == item.getID());
+    const index = array.findIndex(element => element.getID() == item.getID());
     array.splice(index, 1);
 }
-
 
 
 const app = (() => {
     const lists = [];
 
 })();
-
-
-
 
 
 export { createTask, createTodoList };
