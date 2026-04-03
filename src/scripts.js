@@ -64,8 +64,8 @@ function createTask(title, startDate, dueDate, priority, note) {
         return getItemInArray(id, subtasks);
     }
 
-    function removeSubTask(subtask) {
-        removeItemFromArray(subtask, subtasks);
+    function removeSubTask(id) {
+        removeItemFromArray(id, subtasks);
     }
 
     return {
@@ -135,8 +135,8 @@ function createTodoList(title) {
         return getItemInArray(id, tasks);
     }
 
-    function removeTask(task) {
-        removeItemFromArray(task, tasks);
+    function removeTask(id) {
+        removeItemFromArray(id, tasks);
     }
 
     return { getID, getTitle, setTitle, getTasks, addTask, getTask, removeTask };
@@ -146,8 +146,8 @@ function getItemInArray(id, array) {
     return array.find(element => element.getID() == id);
 }
 
-function removeItemFromArray(item, array) {
-    const index = array.findIndex(element => element.getID() == item.getID());
+function removeItemFromArray(id, array) {
+    const index = array.findIndex(element => element.getID() == id);
     array.splice(index, 1);
 }
 
