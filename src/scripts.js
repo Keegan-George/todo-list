@@ -127,8 +127,8 @@ function createTodoList(title) {
         return tasks;
     }
 
-    function addTask(task) {
-        tasks.push(task);
+    function addTask(title, startDue, dueDate, priority, note) {
+        tasks.push(createTask(title, startDue, dueDate, priority, note));
     }
 
     function getTask(id) {
@@ -158,4 +158,4 @@ const app = (() => {
 })();
 
 
-export { createTask, createTodoList };
+export { createTodoList };
