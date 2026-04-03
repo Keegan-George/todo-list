@@ -60,6 +60,10 @@ function createTask(title, startDate, dueDate, priority, note) {
         subtasks.push(createSubTask(subtaskTitle));
     }
 
+    function getSubTask(id) {
+        return getItemInArray(id, subtasks);
+    }
+
     function removeSubTask(subtask) {
         removeItemFromArray(subtask, subtasks);
     }
@@ -78,6 +82,7 @@ function createTask(title, startDate, dueDate, priority, note) {
         setNote,
         toggleComplete,
         addSubTask,
+        getSubTask,
         removeSubTask
     };
 }
@@ -126,11 +131,19 @@ function createTodoList(title) {
         tasks.push(task);
     }
 
+    function getTask(id) {
+        return getItemInArray(id, tasks);
+    }
+
     function removeTask(task) {
         removeItemFromArray(task, tasks);
     }
 
-    return { getID, getTitle, setTitle, getTasks, addTask, removeTask };
+    return { getID, getTitle, setTitle, getTasks, addTask, getTask, removeTask };
+}
+
+function getItemInArray(id, array) {
+    return array.find(element => element.getID() == id);
 }
 
 function removeItemFromArray(item, array) {
