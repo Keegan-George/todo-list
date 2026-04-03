@@ -8,7 +8,7 @@ function createTask(title, startDate, dueDate, priority, note) {
     let complete = false;
     let subtasks = [];
 
-    function getID(){
+    function getID() {
         return id;
     }
 
@@ -60,10 +60,12 @@ function createTask(title, startDate, dueDate, priority, note) {
         subtasks.push(subtask);
     }
 
-    //need a delete subtask function here
+    function removeSubTask(subtask) {
+        removeItemFromArray(subtask, subtasks);
+    }
 
     return {
-        getID;
+        getID,
         getTitle,
         setTitle,
         getStartDate,
@@ -76,6 +78,7 @@ function createTask(title, startDate, dueDate, priority, note) {
         setNote,
         toggleComplete,
         addSubTask,
+        removeSubTask
     };
 }
 
@@ -84,7 +87,7 @@ function createTodoList(title) {
     let toDoTitle = title;
     let toDoTasks = [];
 
-    function getID(){
+    function getID() {
         return id;
     }
 
@@ -104,21 +107,22 @@ function createTodoList(title) {
         toDoTasks.push(task);
     }
 
-    //need a delete task function here
+    function removeTask(task) {
+        removeItemFromArray(task, toDoTasks);
+    }
 
-    return { getID, getTitle, setTitle, getTasks, addTask };
+    return { getID, getTitle, setTitle, getTasks, addTask, removeTask };
 }
 
-
+function removeItemFromArray(item, array) {
+    index = array.findIndex(element => element.getID() == item.getID());
+    array.splice(index, 1);
+}
 
 
 
 const app = (() => {
     const lists = [];
-
-
-
-
 
 })();
 
