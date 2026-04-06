@@ -151,11 +151,25 @@ function removeItemFromArray(id, array) {
     array.splice(index, 1);
 }
 
-
 const app = (() => {
     const lists = [];
 
+    const newListForm = document.querySelector(".new-list-form");
+    newListForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const newListName = document.querySelector("#new-list-name").value;
+
+        if (!newListName) { return; }
+
+        lists.push(createTodoList(newListName));
+
+        newListForm.reset();
+    });
 })();
+
+
+
 
 
 export { createTodoList };

@@ -8,8 +8,31 @@
 </head>
 
 <body>
-    <h1>Todo List</h1>
-</body>
+    <div class="container">
+        <nav class="sidebar">
+            <section class="user-section">
+                <!-- <img src="./src/" alt="" class="avatar"> -->
+                <div class="username">Username</div>
+            </section>
 
+            <section class="lists-section">
+                <h2 class="lists-title">My Lists</h2>
+                <button class="add-list">+</button>
+
+                <ul class="lists">
+                </ul>
+            </section>
+
+            <div class="new-list-modal">
+                <form action="" class="new-list-form">
+                    <input type="text" id="new-list-name" name="new-list-name">
+                    <button type="button" id="new-list-cancel">Cancel</button>
+                    <button type="submit" id="new-list-submit">Submit</button>
+                </form>
+            </div>
+
+        </nav>
+    </div>
+</body>
 
 </html>
