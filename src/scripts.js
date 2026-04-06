@@ -151,10 +151,28 @@ function removeItemFromArray(id, array) {
     array.splice(index, 1);
 }
 
+
+const ui = (() => {
+    function displayToDoLists(lists) {
+        const toDoLists = document.querySelector(".todo-lists");
+        toDoLists.replaceChildren();
+
+        lists.forEach(list => {
+            const li = document.createElement("li");
+            li.textContent = list.getTitle();
+            toDoLists.appendChild(li);
+        });
+    }
+
+    return { displayToDoLists };
+})();
+
+
 const app = (() => {
     const lists = [];
 
     const newListForm = document.querySelector(".new-list-form");
+
     newListForm.addEventListener("submit", (event) => {
         event.preventDefault();
 
@@ -165,9 +183,10 @@ const app = (() => {
         lists.push(createTodoList(newListName));
 
         newListForm.reset();
+
+        ui.displayToDoLists(lists);
     });
 })();
-
 
 
 
