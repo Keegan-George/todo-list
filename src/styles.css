@@ -4,6 +4,20 @@
     box-sizing: border-box;
 }
 
-h1 {
-    color: purple;
+.lists-section .lists-section-header {
+    display: flex;
+    gap: 5px;
+}
+
+.new-list-modal{
+    position: fixed;
+    top: 50%;
+    right: 50%;
+    z-index: 1;
+    background: lightgrey;
+    padding: 1rem;
+}
+
+.hidden {
+    display: none;
 }

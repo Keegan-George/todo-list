@@ -167,7 +167,6 @@ const ui = (() => {
     return { displayToDoLists };
 })();
 
-
 const app = (() => {
     const lists = [];
 
@@ -186,6 +185,17 @@ const app = (() => {
 
         ui.displayToDoLists(lists);
     });
+
+
+    const newListModal = document.querySelector(".new-list-modal");
+
+    const addListButton = document.querySelector(".add-list");
+    addListButton.addEventListener("click", () => {
+        newListModal.classList.toggle("hidden");
+    });
+
+
+
 })();
 
 

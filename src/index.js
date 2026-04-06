@@ -1,15 +1,24 @@
 import "./styles.css";
-import {createTask, createTodoList} from "./scripts.js";
+import {createTodoList} from "./scripts.js";
 
 
+// //Temporary for testing
+// const myToDoList = createTodoList("My To-Do List");
 
-//TEMPORARY FOR TESTING
-const task = createTask("Pay bills", "April 1, 2026", "April 6, 2026", 1, "Partial pay for flight");
-console.log(task.getTitle());
-task.addSubTask("Pay Visa bill");
-task.addSubTask("Pay American Express bill");
-task.addSubTask("Pay phone bill");
+// myToDoList.addTask("Pay Cell Phone Bill", "March 1", "March 5", 1, "");
+// console.log(myToDoList.getTasks());
 
-const mondayToDoList = createTodoList("Monday");
-mondayToDoList.addTask(task);
-console.log(mondayToDoList.getTasks());
+// myToDoList.addTask("Renew Driver's License", "March 2", "March 8", 2, "");
+// console.log(myToDoList.getTasks());
+
+// const task1ID = myToDoList.getTasks()[0].getID();
+// console.log(task1ID);
+
+// const task2ID = myToDoList.getTasks()[1].getID();
+// console.log(task2ID);
+
+
+// myToDoList.removeTask(task1ID);
+
+// console.log(myToDoList.getTasks());
+

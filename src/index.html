@@ -16,18 +16,20 @@
             </section>
 
             <section class="lists-section">
-                <h2 class="lists-title">My Lists</h2>
-                <button class="add-list">+</button>
+                <div class="lists-section-header">
+                    <h2 class="lists-section-title">My Lists</h2>
+                    <button type="button" class="add-list">+</button>
+                </div>
 
                 <ul class="todo-lists">
                 </ul>
             </section>
 
-            <div class="new-list-modal">
+            <div class="new-list-modal hidden">
                 <form action="" class="new-list-form">
                     <input type="text" id="new-list-name" name="new-list-name">
-                    <button type="button" id="new-list-cancel">Cancel</button>
-                    <button type="submit" id="new-list-submit">Submit</button>
+                    <button type="button" class="new-list-cancel">Cancel</button>
+                    <button type="submit" class="new-list-submit">Submit</button>
                 </form>
             </div>
 
