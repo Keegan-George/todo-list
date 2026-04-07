@@ -182,6 +182,7 @@ const app = (() => {
         lists.push(createTodoList(newListName));
 
         newListForm.reset();
+        newListModal.classList.toggle("hidden");
 
         ui.displayToDoLists(lists);
     });
