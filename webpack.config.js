@@ -13,6 +13,7 @@ export default {
     devtool: "eval-source-map",
     devServer: {
         watchFiles: ["./src/index.html"],
+        server: "https",
     },
     plugins: [
         new HtmlWebpackPlugin({
