@@ -4,18 +4,38 @@
     box-sizing: border-box;
 }
 
+:root{
+    --space-s: 1rem;
+    --space-l: 5rem;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    height: 100vh;
+
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-s);
+    gap: var(--space-l);
+
+}
+
 .lists-section .lists-section-header {
     display: flex;
     gap: 5px;
 }
 
-.new-list-modal{
+.new-list-modal {
     position: fixed;
     top: 50%;
     right: 50%;
     z-index: 1;
     background: lightgrey;
-    padding: 1rem;
+    padding: var(--space-s);
 }
 
 .hidden {
