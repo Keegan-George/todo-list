@@ -8,6 +8,7 @@
     /* spacing */
     --space-xs: 0.5rem;
     --space-s: 1rem;
+    --space-sm: 2rem;
     --space-m: 2.5rem;
     --space-l: 5rem;
 
@@ -18,7 +19,7 @@
 
 }
 
-body{
+body {
     background-color: var(--background-color);
 }
 
@@ -63,11 +64,21 @@ body{
     font-weight: 700;
 }
 
-.lists-section-header button{
+.lists-section-header button {
     width: 1.25rem;
     cursor: pointer;
     border: none;
     background: none;
+}
+
+.lists-section .todo-lists {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    font-size: 1.25rem;
+    margin-left: var(--space-sm);
+    gap: var(--space-xs);
+    cursor: pointer;
 }
 
 .new-list-modal {
