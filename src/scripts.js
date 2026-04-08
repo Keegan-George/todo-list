@@ -170,6 +170,23 @@ const ui = (() => {
 const app = (() => {
     const lists = [];
 
+    const newListModal = document.querySelector(".new-list-modal");
+
+    function closeNewListModal() {
+        newListModal.classList.toggle("hidden");
+    }
+
+    const addListButton = document.querySelector(".add-list");
+    addListButton.addEventListener("click", () => {
+        closeNewListModal()
+    });
+
+    const newListCancelButton = document.querySelector(".new-list-cancel");
+
+    newListCancelButton.addEventListener("click", () => {
+        closeNewListModal();
+    })
+
     const newListForm = document.querySelector(".new-list-form");
 
     newListForm.addEventListener("submit", (event) => {
@@ -186,20 +203,7 @@ const app = (() => {
 
         ui.displayToDoLists(lists);
     });
-
-
-    const newListModal = document.querySelector(".new-list-modal");
-
-    const addListButton = document.querySelector(".add-list");
-    addListButton.addEventListener("click", () => {
-        newListModal.classList.toggle("hidden");
-    });
-
-
-
 })();
-
-
 
 
 export { createTodoList };
