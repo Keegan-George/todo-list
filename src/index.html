@@ -11,7 +11,7 @@
     <div class="container">
         <nav class="sidebar">
             <section class="user-section">
-                <img src="./img/account-circle.svg" alt="account icon in circle" class="account-icon">
+                <img src="./img/account-icon.svg" alt="account icon in circle" class="account-icon">
                 <div class="username">Ripley</div>
             </section>
 
@@ -19,7 +19,7 @@
                 <div class="lists-section-header">
                     <h2 class="lists-section-title">My Lists</h2>
                     <button type="button" class="add-list">
-                        <img src="./img/plus.svg" alt="plus icon" class="plus-icon">
+                        <img src="./img/new-list-plus.svg" alt="plus icon" class="plus-icon">
                     </button>
                 </div>
 
@@ -37,8 +37,22 @@
                     </div>
                 </form>
             </div>
-
         </nav>
+
+        <main>
+            <h2 class="list-title">[List Title Here]</h2>
+            <div class="modal tasks-modal">
+                <ul class="tasks">
+                </ul>
+                <form action="" class="new-task-form">
+                    <input type="text" id="new-task-name" name="new-task-name">
+                    <button type="submit" class="new-task-submit">
+                        <img src="./img/arrow-up-submit.svg" alt="arrow up submit icon" class="arrow-up-submit-icon">
+                    </button>
+                </form>
+            </div>
+            <div class="modal subtasks-modal"></div>
+        </main>
     </div>
 </body>
 

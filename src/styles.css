@@ -8,7 +8,6 @@
     /* spacing */
     --space-xs: 0.5rem;
     --space-s: 1rem;
-    --space-ssm: 1.5rem;
     --space-sm: 2rem;
     --space-m: 2.5rem;
     --space-l: 5rem;
@@ -17,7 +16,8 @@
     --primary-color: #F4EEFF;
     --secondary-color: #DCD6F7;
     --tertiary-color: #A6B1E1;
-    --quaternary-color: #424874; 
+    --quaternary-color: #424874;
+    --input-color: #F0F0F0;
 
 }
 
@@ -110,8 +110,8 @@ body {
 }
 
 .new-list-form input {
-    height: var(--space-ssm);
-    background-color: #F0F0F0;
+    height: 1.5rem;
+    background-color: var(--input-color);
     border: none;
     border-radius: 5px;
     padding: 5px
@@ -125,6 +125,55 @@ body {
 .modal-buttons button {
     flex: 1;
     font-weight: 700;
+}
+
+main {
+    display: grid;
+    grid-template-rows: 0fr 1fr;
+    grid-template-columns: 1fr 1fr;
+}
+
+main .list-title {
+    grid-column: 1 / 3;
+    margin: 0.75rem 0.5rem;
+    background-color: var(--secondary-color);
+}
+
+main .modal {
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    flex: 1;
+    margin: 0.5rem;
+}
+
+main .tasks-modal {
+    display: flex;
+    flex-direction: column;
+}
+
+.tasks-modal ul {
+    flex: 1;
+}
+
+.tasks-modal .new-task-form {
+    display: flex;
+    margin: 0.5rem;
+    gap: var(--space-xs);
+}
+
+.new-task-form input {
+    flex: 1;
+    background-color: var(--input-color);
+    border: 1 solid black;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.new-task-form button {
+    width: 2rem;
+    border: none;
+    cursor: pointer;
+    background: none;
 }
 
 .hidden {
