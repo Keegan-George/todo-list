@@ -8,19 +8,21 @@
     /* spacing */
     --space-xs: 0.5rem;
     --space-s: 1rem;
+    --space-ssm: 1.5rem;
     --space-sm: 2rem;
     --space-m: 2.5rem;
     --space-l: 5rem;
 
     /* colors */
-    --background-color: #F4EEFF;
-    --sidebar-color: #DCD6F7;
-    /* #A6B1E1, #424874 */
+    --primary-color: #F4EEFF;
+    --secondary-color: #DCD6F7;
+    --tertiary-color: #A6B1E1;
+    --quaternary-color: #424874; 
 
 }
 
 body {
-    background-color: var(--background-color);
+    background-color: var(--primary-color);
 }
 
 .container {
@@ -34,7 +36,7 @@ body {
     flex-direction: column;
     padding: var(--space-s);
     gap: var(--space-l);
-    background-color: var(--sidebar-color);
+    background-color: var(--secondary-color);
 }
 
 .sidebar .user-section {
@@ -82,12 +84,47 @@ body {
 }
 
 .new-list-modal {
-    position: fixed;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 50%;
     top: 50%;
-    right: 50%;
+    transform: translate(-50%, -50%);
     z-index: 1;
     background: lightgrey;
     padding: var(--space-s);
+    gap: var(--space-xs);
+    padding: 5px;
+    width: 20%;
+    height: 13%;
+    border-radius: 10px;
+    background-color: var(--tertiary-color);
+
+}
+
+.new-list-modal .new-list-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.new-list-form input {
+    height: var(--space-ssm);
+    background-color: #F0F0F0;
+    border: none;
+    border-radius: 5px;
+    padding: 5px
+}
+
+.new-list-form .modal-buttons {
+    flex: 1;
+    display: flex;
+}
+
+.modal-buttons button {
+    flex: 1;
+    font-weight: 700;
 }
 
 .hidden {
