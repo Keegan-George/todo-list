@@ -170,6 +170,7 @@ const ui = (() => {
 const app = (() => {
     const lists = [];
 
+    //functions related to lists - consider putting in separate module
     const newListModal = document.querySelector(".new-list-modal");
 
     function closeNewListModal() {
@@ -204,9 +205,28 @@ const app = (() => {
         ui.displayToDoLists(lists);
     });
 
+    //functions related to tasks - consider putting in separate function
+    const newTaskForm = document.querySelector(".new-task-form");
+
+    newTaskForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const newTaskName = document.querySelector("#new-task-name").value;
+
+        if (!newTaskName) { return; }
+
+        //add the task to the corresponding list
+
+        newTaskForm.reset();
+
+        // display the newly added task in the list
+
+    })
 
 
-    
+
+
+
 })();
 
 
