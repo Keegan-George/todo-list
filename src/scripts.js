@@ -127,8 +127,8 @@ function createTodoList(title) {
         return tasks;
     }
 
-    function addTask(title, startDue, dueDate, priority, note) {
-        tasks.push(createTask(title, startDue, dueDate, priority, note));
+    function addTask(title, dueDate, priority, note) {
+        tasks.push(createTask(title, dueDate, priority, note));
     }
 
     function getTask(id) {
