@@ -99,7 +99,6 @@ body {
     height: 13%;
     border-radius: 5px;
     background-color: var(--tertiary-color);
-
 }
 
 .new-list-modal .new-list-form {
@@ -151,8 +150,22 @@ main .tasks-modal {
     flex-direction: column;
 }
 
-.tasks-modal ul {
+.tasks-modal .tasks {
     flex: 1;
+    list-style-type: none;
+}
+
+.tasks li {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0.25rem;
+    margin: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.tasks li:hover {
+    transform: scale(1.03);
 }
 
 .tasks-modal .new-task-form {
@@ -175,6 +188,9 @@ main .tasks-modal {
     cursor: pointer;
     background: none;
 }
+
+
+
 
 .hidden {
     display: none;
