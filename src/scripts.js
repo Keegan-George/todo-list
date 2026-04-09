@@ -153,25 +153,48 @@ function removeItemFromArray(id, array) {
 
 
 const ui = (() => {
-    function displayToDoLists(lists) {
-        const toDoLists = document.querySelector(".todo-lists");
-        toDoLists.replaceChildren();
+    function displayLists(lists) {
+        const toDoListsElement = document.querySelector(".todo-lists");
+        toDoListsElement.replaceChildren();
 
         lists.forEach(list => {
             const li = document.createElement("li");
             li.textContent = list.getTitle();
-            toDoLists.appendChild(li);
+            li.dataset.id = list.getID();
+            toDoListsElement.appendChild(li);
         });
     }
 
-    return { displayToDoLists };
+    function displayListTitle(title) {
+        const listTitle = document.querySelector(".list-title");
+        listTitle.textContent = title;
+    }
+
+    function displayTasks(tasks) {
+        const tasksListElement = document.querySelector(".tasks");
+        tasksListElement.replaceChildren();
+
+        tasks.forEach(task => {
+            const li = document.createElement("li");
+            li.textContent = task.getTitle();
+            li.dataset.id = task.getID();
+            tasksListElement.appendChild(li);
+        })
+    }
+
+    return { displayLists, displayListTitle, displayTasks };
 })();
 
 const app = (() => {
     const lists = [];
+    let currentListID = undefined;
 
-    //functions related to lists - consider putting in separate module
+    //List functions
     const newListModal = document.querySelector(".new-list-modal");
+
+    function getList(id) {
+        return getItemInArray(id, lists);
+    }
 
     function closeNewListModal() {
         newListModal.classList.toggle("hidden");
@@ -183,13 +206,11 @@ const app = (() => {
     });
 
     const newListCancelButton = document.querySelector(".new-list-cancel");
-
     newListCancelButton.addEventListener("click", () => {
         closeNewListModal();
     })
 
     const newListForm = document.querySelector(".new-list-form");
-
     newListForm.addEventListener("submit", (event) => {
         event.preventDefault();
 
@@ -202,10 +223,24 @@ const app = (() => {
         newListForm.reset();
         newListModal.classList.toggle("hidden");
 
-        ui.displayToDoLists(lists);
+        ui.displayLists(lists);
     });
 
-    //functions related to tasks - consider putting in separate function
+    const toDoLists = document.querySelector(".todo-lists");
+    toDoLists.addEventListener("click", event => {
+        const listItem = event.target.closest("li")
+
+        if (!listItem) { return; }
+
+        const list = getList(listItem.dataset.id);
+        currentListID = listItem.dataset.id;
+
+
+        ui.displayListTitle(list.getTitle());
+        ui.displayTasks(list.getTasks());
+    });
+
+    //Task functions
     const newTaskForm = document.querySelector(".new-task-form");
 
     newTaskForm.addEventListener("submit", (event) => {
@@ -215,18 +250,14 @@ const app = (() => {
 
         if (!newTaskName) { return; }
 
-        //add the task to the corresponding list
+        const currentList = getList(currentListID)
+
+        currentList.addTask(newTaskName);
+
+        ui.displayTasks(currentList.getTasks());
 
         newTaskForm.reset();
-
-        // display the newly added task in the list
-
     })
-
-
-
-
-
 })();
 
 
