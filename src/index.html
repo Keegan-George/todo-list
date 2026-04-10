@@ -56,8 +56,9 @@
                 <h1 class="task-title">Task title here</h1>
 
                 <form action="" class="task-details-form">
-                    <label for="due_date">Due Date</label>
-                    <input type="date" id="due_date" class="due_date">
+                    <label for="due-date">Due Date</label>
+                    <input type="date" id="due-date">
+
                     <label for="priority">Priority</label>
                     <select name="priority" id="priority">
                         <option value="p1">P1</option>
@@ -65,12 +66,15 @@
                         <option value="P3">P3</option>
                         <option value="P4">P4</option>
                     </select>
+
                     <label for="note">Note</label>
                     <textarea name="note" id="note" placeholder="Add a note here" rows="5" cols="50"></textarea>
-                    <label for="subtasks">Subtasks</label>
-                    <ul class="subtasks"></ul>
+
+                    <p>Subtasks</p>
+                    <ul class="subtasks" id="subtasks"></ul>
                     <button>Add subtask</button>
-                    <button type="submit">Save</button>
+
+                    <button type="submit" class="save-task-details-button">Save</button>
                 </form>
             </div>
 

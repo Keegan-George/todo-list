@@ -6,7 +6,7 @@ function createTask(title, startDate, dueDate, priority, note) {
     let taskPriority = priority;
     let taskNote = note;
     let complete = false;
-    let subtasks = [];
+    let subTasks = [];
 
     function getID() {
         return id;
@@ -57,15 +57,19 @@ function createTask(title, startDate, dueDate, priority, note) {
     }
 
     function addSubTask(subtaskTitle) {
-        subtasks.push(createSubTask(subtaskTitle));
+        subTasks.push(createSubTask(subtaskTitle));
     }
 
     function getSubTask(id) {
-        return getItemInArray(id, subtasks);
+        return getItemInArray(id, subTasks);
     }
 
     function removeSubTask(id) {
-        removeItemFromArray(id, subtasks);
+        removeItemFromArray(id, subTasks);
+    }
+
+    function getSubTasks() {
+        return subTasks;
     }
 
     return {
@@ -83,7 +87,8 @@ function createTask(title, startDate, dueDate, priority, note) {
         toggleComplete,
         addSubTask,
         getSubTask,
-        removeSubTask
+        removeSubTask,
+        getSubTasks
     };
 }
 
@@ -182,12 +187,48 @@ const ui = (() => {
         })
     }
 
-    return { displayLists, displayListTitle, displayTasks };
+    function displayTaskDetails(task) {
+        const taskTitleElement = document.querySelector(".task-title");
+        const dueDateElement = document.querySelector("#due-date");
+        const priorityElement = document.querySelector("#priority");
+        const noteElement = document.querySelector("#note");
+        const subtasksListElement = document.querySelector("#subtasks");
+
+        taskTitleElement.textContent = task.getTitle();
+
+        const dueDate = task.getDueDate();
+        if (dueDate) {
+            dueDateElement.value = dueDate
+        }
+
+        const priority = task.getPriority();
+        if (priority) {
+            priorityElement.value = priority;
+        }
+
+        const note = task.getNote();
+        if (note) {
+            noteElement.value = note;
+        }
+
+        const subTasks = task.getSubTasks();
+        if (subTasks) {
+            subTasks.forEach(subtask => {
+                const li = document.createElement("li");
+                li.textContent = subtask.getTitle();
+                li.dataset.id = subtask.getID();
+                subtasksListElement.appendChild(li);
+            })
+        }
+    }
+
+    return { displayLists, displayListTitle, displayTasks, displayTaskDetails };
 })();
 
 const app = (() => {
     const lists = [];
     let currentListID = undefined;
+    let currentTaskID = undefined;
 
     //List functions
     const newListModal = document.querySelector(".new-list-modal");
@@ -208,10 +249,10 @@ const app = (() => {
     const newListCancelButton = document.querySelector(".new-list-cancel");
     newListCancelButton.addEventListener("click", () => {
         closeNewListModal();
-    })
+    });
 
     const newListForm = document.querySelector(".new-list-form");
-    newListForm.addEventListener("submit", (event) => {
+    newListForm.addEventListener("submit", event => {
         event.preventDefault();
 
         const newListName = document.querySelector("#new-list-name").value;
@@ -235,29 +276,62 @@ const app = (() => {
         const list = getList(listItem.dataset.id);
         currentListID = listItem.dataset.id;
 
-
         ui.displayListTitle(list.getTitle());
         ui.displayTasks(list.getTasks());
     });
 
     //Task functions
     const newTaskForm = document.querySelector(".new-task-form");
-
-    newTaskForm.addEventListener("submit", (event) => {
+    newTaskForm.addEventListener("submit", event => {
         event.preventDefault();
 
         const newTaskName = document.querySelector("#new-task-name").value;
 
         if (!newTaskName) { return; }
 
-        const currentList = getList(currentListID)
+        const currentList = getList(currentListID);
 
         currentList.addTask(newTaskName);
 
         ui.displayTasks(currentList.getTasks());
 
         newTaskForm.reset();
-    })
+    });
+
+    //Task details
+    const tasksListElement = document.querySelector(".tasks");
+    tasksListElement.addEventListener("click", event => {
+        const taskItem = event.target.closest("li");
+
+        if (!taskItem) { return; }
+
+        currentTaskID = taskItem.dataset.id;
+
+        const currentList = getList(currentListID);
+
+        const task = currentList.getTask(currentTaskID);
+
+        ui.displayTaskDetails(task);
+    });
+
+    const taskDetailsForm = document.querySelector(".task-details-form")
+    taskDetailsForm.addEventListener("submit", event => {
+        event.preventDefault();
+
+        const currentList = getList(currentListID);
+        const task = currentList.getTask(currentTaskID);
+
+        const dueDateElement = document.querySelector("#due-date");
+        const priorityElement = document.querySelector("#priority");
+        const noteElement = document.querySelector("#note");
+        const subtasksListElement = document.querySelector("#subtasks");
+
+        task.setDueDate(dueDateElement.value);
+        task.setPriority(priorityElement.value);
+        task.setNote(noteElement.value);
+    });
+
+
 })();
 
 
