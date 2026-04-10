@@ -197,19 +197,13 @@ const ui = (() => {
         taskTitleElement.textContent = task.getTitle();
 
         const dueDate = task.getDueDate();
-        if (dueDate) {
-            dueDateElement.value = dueDate
-        }
+        dueDateElement.value = dueDate === undefined ? "" : dueDate;
 
         const priority = task.getPriority();
-        if (priority) {
-            priorityElement.value = priority;
-        }
+        priorityElement.value = priority === undefined ? "" : priority;
 
         const note = task.getNote();
-        if (note) {
-            noteElement.value = note;
-        }
+        noteElement.value = note === undefined ? "" : note;
 
         const subTasks = task.getSubTasks();
         if (subTasks) {
