@@ -200,7 +200,7 @@ const ui = (() => {
         dueDateElement.value = dueDate === undefined ? "" : dueDate;
 
         const priority = task.getPriority();
-        priorityElement.value = priority === undefined ? "" : priority;
+        priorityElement.value = priority === undefined ? "default" : priority;
 
         const note = task.getNote();
         noteElement.value = note === undefined ? "" : note;
