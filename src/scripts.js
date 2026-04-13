@@ -308,24 +308,29 @@ const app = (() => {
         ui.displayTaskDetails(task);
     });
 
-    const taskDetailsForm = document.querySelector(".task-details-form")
-    taskDetailsForm.addEventListener("submit", event => {
-        event.preventDefault();
-
+    const dueDateElement = document.querySelector("#due-date");
+    dueDateElement.addEventListener("change", () => {
         const currentList = getList(currentListID);
         const task = currentList.getTask(currentTaskID);
-
-        const dueDateElement = document.querySelector("#due-date");
-        const priorityElement = document.querySelector("#priority");
-        const noteElement = document.querySelector("#note");
-        const subtasksListElement = document.querySelector("#subtasks");
-
         task.setDueDate(dueDateElement.value);
-        task.setPriority(priorityElement.value);
-        task.setNote(noteElement.value);
     });
 
+    const priorityElement = document.querySelector("#priority");
+    priorityElement.addEventListener("change", () => {
+        const currentList = getList(currentListID);
+        const task = currentList.getTask(currentTaskID);
+        task.setPriority(priorityElement.value);
+    });
 
+    const noteElement = document.querySelector("#note");
+    noteElement.addEventListener("change", () => {
+        const currentList = getList(currentListID);
+        const task = currentList.getTask(currentTaskID);
+        task.setNote(noteElement.value);
+
+    });
+
+    const subtasksListElement = document.querySelector("#subtasks");
 })();
 
 
