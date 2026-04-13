@@ -184,7 +184,7 @@ const ui = (() => {
             li.textContent = task.getTitle();
             li.dataset.id = task.getID();
             tasksListElement.appendChild(li);
-        })
+        });
     }
 
     function displayTaskDetails(task) {
@@ -192,7 +192,6 @@ const ui = (() => {
         const dueDateElement = document.querySelector("#due-date");
         const priorityElement = document.querySelector("#priority");
         const noteElement = document.querySelector("#note");
-        const subtasksListElement = document.querySelector("#subtasks");
 
         taskTitleElement.textContent = task.getTitle();
 
@@ -205,18 +204,22 @@ const ui = (() => {
         const note = task.getNote();
         noteElement.value = note === undefined ? "" : note;
 
-        const subTasks = task.getSubTasks();
-        if (subTasks) {
-            subTasks.forEach(subtask => {
-                const li = document.createElement("li");
-                li.textContent = subtask.getTitle();
-                li.dataset.id = subtask.getID();
-                subtasksListElement.appendChild(li);
-            })
-        }
+        displaySubtasks(task.getSubTasks());
     }
 
-    return { displayLists, displayListTitle, displayTasks, displayTaskDetails };
+    function displaySubtasks(subtasks) {
+        const subtasksListElement = document.querySelector("#subtasks");
+        subtasksListElement.replaceChildren();
+
+        subtasks.forEach(subtask => {
+            const li = document.createElement("li");
+            li.textContent = subtask.getTitle();
+            li.dataset.id = subtask.getID();
+            subtasksListElement.appendChild(li);
+        });
+    }
+
+    return { displayLists, displayListTitle, displayTasks, displayTaskDetails, displaySubtasks };
 })();
 
 const app = (() => {
@@ -308,29 +311,42 @@ const app = (() => {
         ui.displayTaskDetails(task);
     });
 
-    const dueDateElement = document.querySelector("#due-date");
-    dueDateElement.addEventListener("change", () => {
+    const dueDateInput = document.querySelector("#due-date");
+    dueDateInput.addEventListener("change", () => {
         const currentList = getList(currentListID);
         const task = currentList.getTask(currentTaskID);
-        task.setDueDate(dueDateElement.value);
+        task.setDueDate(dueDateInput.value);
     });
 
-    const priorityElement = document.querySelector("#priority");
-    priorityElement.addEventListener("change", () => {
+    const prioritySelector = document.querySelector("#priority");
+    prioritySelector.addEventListener("change", () => {
         const currentList = getList(currentListID);
         const task = currentList.getTask(currentTaskID);
-        task.setPriority(priorityElement.value);
+        task.setPriority(prioritySelector.value);
     });
 
-    const noteElement = document.querySelector("#note");
-    noteElement.addEventListener("change", () => {
+    const noteInput = document.querySelector("#note");
+    noteInput.addEventListener("change", () => {
         const currentList = getList(currentListID);
         const task = currentList.getTask(currentTaskID);
-        task.setNote(noteElement.value);
+        task.setNote(noteInput.value);
 
     });
 
-    const subtasksListElement = document.querySelector("#subtasks");
+    const subtaskInput = document.querySelector("#new-subtask-name");
+    subtaskInput.addEventListener("change", () => {
+        const currentList = getList(currentListID);
+        const task = currentList.getTask(currentTaskID);
+        task.addSubTask(subtaskInput.value);
+
+        ui.displaySubtasks(task.getSubTasks());
+        subtaskInput.value = "";
+    });
+
+    const taskDetailsForm = document.querySelector(".task-details-form");
+    taskDetailsForm.addEventListener("submit", event => {
+        event.preventDefault();
+    })
 })();
 
 
