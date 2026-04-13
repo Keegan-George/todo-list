@@ -56,24 +56,34 @@
                 <h1 class="task-title">Task title here</h1>
 
                 <form action="" class="task-details-form">
-                    <label for="due-date">Due Date</label>
-                    <input type="date" id="due-date">
+                    <section class="due-date-priority-section">
+                        <div class="due-date-control">
+                            <label for="due-date">Due Date</label>
+                            <input type="date" id="due-date">
+                        </div>
 
-                    <label for="priority">Priority</label>
-                    <select name="priority" id="priority">
-                        <option value="default"></option>
-                        <option value="p1">P1</option>
-                        <option value="P2">P2</option>
-                        <option value="P3">P3</option>
-                        <option value="P4">P4</option>
-                    </select>
+                        <div class="priority-control">
+                            <label for="priority">Priority</label>
+                            <select name="priority" id="priority">
+                                <option value="default"></option>
+                                <option value="p1">P1</option>
+                                <option value="P2">P2</option>
+                                <option value="P3">P3</option>
+                                <option value="P4">P4</option>
+                            </select>
+                        </div>
+                    </section>
 
-                    <label for="note">Note</label>
-                    <textarea name="note" id="note" placeholder="Add a note here" rows="5" cols="50"></textarea>
+                    <section class="note-section">
+                        <label for="note">Note</label>
+                        <textarea name="note" id="note" placeholder="Add a note here" rows="5" cols="50"></textarea>
+                    </section>
 
-                    <p>Subtasks</p>
-                    <ul class="subtasks" id="subtasks"></ul>
-                    <input type="text" name="new-subtask-name" id="new-subtask-name" placeholder="Add a subtask">
+                    <section class="subtasks-section">
+                        <p>Subtasks</p>
+                        <ul class="subtasks" id="subtasks"></ul>
+                        <input type="text" name="new-subtask-name" id="new-subtask-name" placeholder="Add a subtask">
+                    </section>
                 </form>
             </div>
 
