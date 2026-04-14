@@ -235,8 +235,21 @@ main .task-details {
     flex-direction: column;
 }
 
-.subtasks-section ul {
+.subtasks-section .subtasks {
     list-style-type: none;
+}
+
+.subtasks li {
+    display: flex;
+    align-items: center;
+
+}
+
+.subtasks .delete-subtask {
+    width: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .hidden {

@@ -1,3 +1,5 @@
+import trashCanImg from "./img/trash-can.svg"
+
 function createTask(title, startDate, dueDate, priority, note) {
     const id = crypto.randomUUID();
     let taskTitle = title;
@@ -215,6 +217,16 @@ const ui = (() => {
             const li = document.createElement("li");
             li.textContent = subtask.getTitle();
             li.dataset.id = subtask.getID();
+
+            const trashIcon = document.createElement("img");
+            trashIcon.src = trashCanImg;
+            trashIcon.alt = "trash can icon";
+
+            const deleteButton = document.createElement("button");
+            deleteButton.classList.add("delete-subtask");
+            deleteButton.appendChild(trashIcon);
+            li.appendChild(deleteButton);
+
             subtasksListElement.appendChild(li);
         });
     }
