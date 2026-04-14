@@ -166,6 +166,7 @@ main .tasks-modal {
 }
 
 .tasks li {
+    display: flex;
     border: 1px solid black;
     border-radius: 5px;
     padding: 0.25rem;
@@ -176,6 +177,13 @@ main .tasks-modal {
 
 .tasks li:hover {
     transform: scale(1.03);
+}
+
+.tasks .delete-task {
+    width: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .tasks-modal .new-task-form {

@@ -142,11 +142,11 @@ function createTodoList(title) {
         return getItemInArray(id, tasks);
     }
 
-    function removeTask(id) {
+    function deleteTask(id) {
         removeItemFromArray(id, tasks);
     }
 
-    return { getID, getTitle, setTitle, getTasks, addTask, getTask, removeTask };
+    return { getID, getTitle, setTitle, getTasks, addTask, getTask, deleteTask };
 }
 
 function getItemInArray(id, array) {
@@ -185,6 +185,17 @@ const ui = (() => {
             const li = document.createElement("li");
             li.textContent = task.getTitle();
             li.dataset.id = task.getID();
+
+            const trashIcon = document.createElement("img");
+            trashIcon.src = trashCanImg;
+            trashIcon.alt = "trash can icon";
+
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.classList.add("delete-task");
+            deleteButton.appendChild(trashIcon);
+            li.appendChild(deleteButton);
+
             tasksListElement.appendChild(li);
         });
     }
@@ -308,7 +319,7 @@ const app = (() => {
         newTaskForm.reset();
     });
 
-    //Task details
+    //Task
     const tasksListElement = document.querySelector(".tasks");
     tasksListElement.addEventListener("click", event => {
         const taskItem = event.target.closest("li");
@@ -316,12 +327,19 @@ const app = (() => {
         if (!taskItem) { return; }
 
         currentTaskID = taskItem.dataset.id;
-
         const currentList = getList(currentListID);
+        const currentTask = currentList.getTask(currentTaskID);
 
-        const task = currentList.getTask(currentTaskID);
+        const deleteTaskButton = event.target.closest(".delete-task");
 
-        ui.displayTaskDetails(task);
+        if (deleteTaskButton) {
+            currentList.deleteTask(currentTaskID);
+            currentTaskID = undefined;
+            ui.displayTasks(currentList.getTasks())
+        }
+        else {
+            ui.displayTaskDetails(currentTask);
+        }
     });
 
     const dueDateInput = document.querySelector("#due-date");
@@ -343,7 +361,6 @@ const app = (() => {
         const currentList = getList(currentListID);
         const task = currentList.getTask(currentTaskID);
         task.setNote(noteInput.value);
-
     });
 
     const subtaskInput = document.querySelector("#new-subtask-name");
