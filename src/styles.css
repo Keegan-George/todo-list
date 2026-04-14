@@ -6,7 +6,6 @@
     font-display: swap;
 }
 
-
 * {
     margin: 0;
     padding: 0;
@@ -27,7 +26,6 @@
     --tertiary-color: #A6B1E1;
     --quaternary-color: #424874;
     --input-color: #F0F0F0;
-
 }
 
 body {
@@ -83,7 +81,7 @@ body {
     background: none;
 }
 
-.lists-section ul {
+.lists-section .todo-lists {
     display: flex;
     flex-direction: column;
     list-style-type: none;
@@ -91,6 +89,19 @@ body {
     margin-left: var(--space-sm);
     gap: var(--space-xs);
     cursor: pointer;
+}
+
+.todo-lists li {
+    display: flex;
+    align-items: center;
+}
+
+.todo-lists .delete-list {
+    width: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+
 }
 
 .new-list-modal {
@@ -155,12 +166,13 @@ main .modal {
     margin: 0.5rem;
 }
 
-main .tasks-modal {
+.tasks-modal .tasks-container{
     display: flex;
     flex-direction: column;
+    height: 100%; 
 }
 
-.tasks-modal ul {
+.tasks-container .tasks {
     flex: 1;
     list-style-type: none;
 }

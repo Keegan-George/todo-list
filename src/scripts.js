@@ -168,8 +168,29 @@ const ui = (() => {
             const li = document.createElement("li");
             li.textContent = list.getTitle();
             li.dataset.id = list.getID();
+
+            const trashIcon = document.createElement("img");
+            trashIcon.src = trashCanImg;
+            trashIcon.alt = "trash can icon";
+
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.classList.add("delete-list");
+            deleteButton.appendChild(trashIcon);
+            li.appendChild(deleteButton);
+
             toDoListsElement.appendChild(li);
         });
+    }
+
+    const tasksModal = document.querySelector(".tasks-modal");
+    function showTasksModal() {
+        tasksModal.classList.remove("hidden");
+    }
+
+    function hideTasksModal() {
+        tasksModal.classList.add("hidden");
+        hideTaskDetailsModal();
     }
 
     function displayListTitle(title) {
@@ -252,7 +273,17 @@ const ui = (() => {
         });
     }
 
-    return { displayLists, displayListTitle, displayTasks, displayTaskDetails, displaySubtasks, showTaskDetailsModal, hideTaskDetailsModal };
+    return {
+        displayLists,
+        displayListTitle,
+        displayTasks,
+        displayTaskDetails,
+        displaySubtasks,
+        showTasksModal,
+        hideTasksModal,
+        showTaskDetailsModal,
+        hideTaskDetailsModal
+    };
 })();
 
 const app = (() => {
@@ -265,6 +296,10 @@ const app = (() => {
 
     function getList(id) {
         return getItemInArray(id, lists);
+    }
+
+    function deleteList(id) {
+        removeItemFromArray(id, lists);
     }
 
     function closeNewListModal() {
@@ -299,15 +334,28 @@ const app = (() => {
 
     const toDoLists = document.querySelector(".todo-lists");
     toDoLists.addEventListener("click", event => {
-        const listItem = event.target.closest("li")
+        const listItem = event.target.closest("li");
 
         if (!listItem) { return; }
 
         const list = getList(listItem.dataset.id);
         currentListID = listItem.dataset.id;
 
-        ui.displayListTitle(list.getTitle());
-        ui.displayTasks(list.getTasks());
+        const deleteListButton = event.target.closest(".delete-list");
+
+        if (deleteListButton) {
+            deleteList(currentListID);
+            currentListID = undefined;
+            currentTaskID = undefined;
+            ui.hideTasksModal();
+            ui.displayLists(lists);
+            ui.displayListTitle("");
+        }
+        else {
+            ui.displayListTitle(list.getTitle());
+            ui.showTasksModal();
+            ui.displayTasks(list.getTasks());
+        }
     });
 
     //Task functions

@@ -40,20 +40,22 @@
         </nav>
 
         <main>
-            <h2 class="list-title">[List Title]</h2>
-            <div class="modal tasks-modal">
-                <ul class="tasks">
-                </ul>
-                <form action="" class="new-task-form">
-                    <input type="text" id="new-task-name" name="new-task-name">
-                    <button type="submit" class="new-task-submit">
-                        <img src="./img/arrow-up-submit.svg" alt="arrow up submit icon" class="arrow-up-submit-icon">
-                    </button>
-                </form>
+            <h2 class="list-title"></h2>
+            <div class="modal tasks-modal hidden">
+                <tasks class="tasks-container">
+                    <ul class="tasks">
+                    </ul>
+                    <form action="" class="new-task-form">
+                        <input type="text" id="new-task-name" name="new-task-name">
+                        <button type="submit" class="new-task-submit">
+                            <img src="./img/arrow-up-submit.svg" alt="arrow up submit icon" class="arrow-up-submit-icon">
+                        </button>
+                    </form>
+                </tasks>
             </div>
 
             <div class="modal task-details hidden">
-                <h1 class="task-title">[Task title]</h1>
+                <h1 class="task-title"></h1>
 
                 <form action="" class="task-details-form">
                     <section class="due-date-priority-section">
