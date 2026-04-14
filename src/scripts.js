@@ -200,6 +200,15 @@ const ui = (() => {
         });
     }
 
+    const taskDetailsModal = document.querySelector(".task-details");
+    function showTaskDetailsModal() {
+        taskDetailsModal.classList.remove("hidden");
+    }
+
+    function hideTaskDetailsModal() {
+        taskDetailsModal.classList.add("hidden");
+    }
+
     function displayTaskDetails(task) {
         const taskTitleElement = document.querySelector(".task-title");
         const dueDateElement = document.querySelector("#due-date");
@@ -243,7 +252,7 @@ const ui = (() => {
         });
     }
 
-    return { displayLists, displayListTitle, displayTasks, displayTaskDetails, displaySubtasks };
+    return { displayLists, displayListTitle, displayTasks, displayTaskDetails, displaySubtasks, showTaskDetailsModal, hideTaskDetailsModal };
 })();
 
 const app = (() => {
@@ -319,7 +328,7 @@ const app = (() => {
         newTaskForm.reset();
     });
 
-    //Task
+    //Tasks
     const tasksListElement = document.querySelector(".tasks");
     tasksListElement.addEventListener("click", event => {
         const taskItem = event.target.closest("li");
@@ -336,8 +345,10 @@ const app = (() => {
             currentList.deleteTask(currentTaskID);
             currentTaskID = undefined;
             ui.displayTasks(currentList.getTasks())
+            ui.hideTaskDetailsModal();
         }
         else {
+            ui.showTaskDetailsModal();
             ui.displayTaskDetails(currentTask);
         }
     });
