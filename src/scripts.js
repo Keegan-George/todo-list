@@ -66,7 +66,7 @@ function createTask(title, startDate, dueDate, priority, note) {
         return getItemInArray(id, subTasks);
     }
 
-    function removeSubTask(id) {
+    function deleteSubtask(id) {
         removeItemFromArray(id, subTasks);
     }
 
@@ -89,7 +89,7 @@ function createTask(title, startDate, dueDate, priority, note) {
         toggleComplete,
         addSubTask,
         getSubTask,
-        removeSubTask,
+        deleteSubtask,
         getSubTasks
     };
 }
@@ -223,6 +223,7 @@ const ui = (() => {
             trashIcon.alt = "trash can icon";
 
             const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
             deleteButton.classList.add("delete-subtask");
             deleteButton.appendChild(trashIcon);
             li.appendChild(deleteButton);
@@ -358,7 +359,27 @@ const app = (() => {
     const taskDetailsForm = document.querySelector(".task-details-form");
     taskDetailsForm.addEventListener("submit", event => {
         event.preventDefault();
-    })
+    });
+
+    const subtasksListElement = document.querySelector("#subtasks");
+    subtasksListElement.addEventListener("click", event => {
+        const listItem = event.target.closest("li");
+
+        if (!listItem) { return; }
+
+        const deleteSubtaskButton = event.target.closest(".delete-subtask");
+
+        if (!deleteSubtaskButton) { return; }
+
+        const currentList = getList(currentListID);
+        const currentTask = currentList.getTask(currentTaskID);
+
+        const subtaskID = listItem.dataset.id;
+
+        currentTask.deleteSubtask(subtaskID);
+
+        ui.displaySubtasks(currentTask.getSubTasks());
+    });
 })();
 
 
