@@ -1,2 +1,2 @@
 import "./styles.css";
-import {createTodoList} from "./scripts.js";
+import { app } from "./app.js";

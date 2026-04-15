@@ -1,0 +1,188 @@
+
+function createTask(title, startDate, dueDate, priority, note) {
+    const id = crypto.randomUUID();
+    let taskTitle = title;
+    let taskStartDate = startDate;
+    let taskDueDate = dueDate;
+    let taskPriority = priority;
+    let taskNote = note;
+    let complete = false;
+    let subTasks = [];
+
+    function getID() {
+        return id;
+    }
+
+    function getTitle() {
+        return taskTitle;
+    }
+
+    function setTitle(newTitle) {
+        taskTitle = newTitle;
+    }
+
+    function getStartDate() {
+        return taskStartDate;
+    }
+
+    function setStartDate(newDate) {
+        taskStartDate = newDate;
+    }
+
+    function getDueDate() {
+        return taskDueDate;
+    }
+
+    function setDueDate(newDate) {
+        taskDueDate = newDate;
+    }
+
+    function getPriority() {
+        return taskPriority;
+    }
+
+    function setPriority(newPriority) {
+        taskPriority = newPriority;
+    }
+
+    function getNote() {
+        return taskNote;
+    }
+
+    function setNote(newNote) {
+        taskNote = newNote
+    }
+
+    function toggleComplete() {
+        complete = !complete;
+    }
+
+    function isComplete() {
+        return complete;
+    }
+
+    function addSubTask(subtaskTitle) {
+        subTasks.push(createSubTask(subtaskTitle));
+    }
+
+    function getSubTask(id) {
+        return getItemInArray(id, subTasks);
+    }
+
+    function deleteSubtask(id) {
+        removeItemFromArray(id, subTasks);
+    }
+
+    function getSubTasks() {
+        return subTasks;
+    }
+
+    return {
+        getID,
+        getTitle,
+        setTitle,
+        getStartDate,
+        setStartDate,
+        getDueDate,
+        setDueDate,
+        getPriority,
+        setPriority,
+        getNote,
+        setNote,
+        toggleComplete,
+        isComplete,
+        addSubTask,
+        getSubTask,
+        deleteSubtask,
+        getSubTasks
+    };
+}
+
+function createSubTask(title) {
+    const id = crypto.randomUUID();
+    let subTaskTitle = title;
+    let complete = false;
+
+    function getID() {
+        return id;
+    }
+
+    function getTitle() {
+        return subTaskTitle;
+    }
+
+    function setTitle(newTitle) {
+        subTaskTitle = newTitle;
+    }
+
+    function toggleComplete() {
+        complete = !complete;
+    }
+
+    function isComplete() {
+        return complete;
+    }
+
+    return {
+        getID,
+        getTitle,
+        setTitle,
+        toggleComplete,
+        isComplete
+    }
+}
+
+function createTodoList(title) {
+    const id = crypto.randomUUID();
+    let toDoTitle = title;
+    let tasks = [];
+
+    function getID() {
+        return id;
+    }
+
+    function getTitle() {
+        return toDoTitle;
+    }
+
+    function setTitle(newTitle) {
+        toDoTitle = newTitle;
+    }
+
+    function getTasks() {
+        return tasks;
+    }
+
+    function addTask(title, dueDate, priority, note) {
+        tasks.push(createTask(title, dueDate, priority, note));
+    }
+
+    function getTask(id) {
+        return getItemInArray(id, tasks);
+    }
+
+    function deleteTask(id) {
+        removeItemFromArray(id, tasks);
+    }
+
+    return {
+        getID,
+        getTitle,
+        setTitle,
+        getTasks,
+        addTask,
+        getTask,
+        deleteTask
+    };
+}
+
+function getItemInArray(id, array) {
+    return array.find(element => element.getID() == id);
+}
+
+function removeItemFromArray(id, array) {
+    const index = array.findIndex(element => element.getID() == id);
+    array.splice(index, 1);
+}
+
+export { createTask, createSubTask, createTodoList, getItemInArray, removeItemFromArray };
