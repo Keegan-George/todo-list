@@ -169,10 +169,10 @@ main .modal {
     margin: 0.5rem;
 }
 
-.tasks-modal .tasks-container{
+.tasks-modal .tasks-container {
     display: flex;
     flex-direction: column;
-    height: 100%; 
+    height: 100%;
 }
 
 .tasks-container .tasks {
@@ -208,14 +208,13 @@ main .modal {
     background-color: var(--checkbox-hover-color);
 }
 
-.task .checkbox.checked{
+.task .checkbox.checked {
     background-color: var(--checkbox-checked-color);
 }
 
-.task .checkbox.checked::after{
+.task .checkbox.checked::after {
     content: "\2713";
     color: var(--checkmark-color);
-
 }
 
 .task .delete-task {
@@ -286,10 +285,32 @@ main .task-details {
     list-style-type: none;
 }
 
-.subtasks li {
+.subtasks .subtask {
     display: flex;
     align-items: center;
+}
 
+.subtask .checkbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    width: 20px;
+    height: 20px;
+    background-color: var(--checkbox-color);
+}
+
+.subtask .checkbox:hover {
+    background-color: var(--checkbox-hover-color);
+}
+
+.subtask .checkbox.checked {
+    background-color: var(--checkbox-checked-color);
+}
+
+.subtask .checkbox.checked::after {
+    content: "\2713";
+    color: var(--checkmark-color);
 }
 
 .subtasks .delete-subtask {

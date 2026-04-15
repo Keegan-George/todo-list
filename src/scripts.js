@@ -97,6 +97,7 @@ function createTask(title, startDate, dueDate, priority, note) {
 function createSubTask(title) {
     const id = crypto.randomUUID();
     let subTaskTitle = title;
+    let complete = false;
 
     function getID() {
         return id;
@@ -110,7 +111,11 @@ function createSubTask(title) {
         subTaskTitle = newTitle;
     }
 
-    return { getID, getTitle, setTitle }
+    function toggleComplete() {
+        complete = !complete;
+    }
+
+    return { getID, getTitle, setTitle, toggleComplete }
 }
 
 function createTodoList(title) {
@@ -264,18 +269,27 @@ const ui = (() => {
 
         subtasks.forEach(subtask => {
             const li = document.createElement("li");
-            li.textContent = subtask.getTitle();
             li.dataset.id = subtask.getID();
+            li.classList.add("subtask");
 
-            const trashIcon = document.createElement("img");
-            trashIcon.src = trashCanImg;
-            trashIcon.alt = "trash can icon";
+            const checkbox = document.createElement("div");
+            checkbox.classList.add("checkbox");
+            li.appendChild(checkbox);
+
+            const subtaskName = document.createElement("div");
+            subtaskName.classList.add("subtask-name");
+            subtaskName.textContent = subtask.getTitle();
+            li.appendChild(subtaskName);
 
             const deleteButton = document.createElement("button");
             deleteButton.type = "button";
             deleteButton.classList.add("delete-subtask");
-            deleteButton.appendChild(trashIcon);
             li.appendChild(deleteButton);
+
+            const trashIcon = document.createElement("img");
+            trashIcon.src = trashCanImg;
+            trashIcon.alt = "trash can icon";
+            deleteButton.appendChild(trashIcon);
 
             subtasksListElement.appendChild(li);
         });
@@ -457,18 +471,22 @@ const app = (() => {
 
         if (!listItem) { return; }
 
-        const deleteSubtaskButton = event.target.closest(".delete-subtask");
-
-        if (!deleteSubtaskButton) { return; }
-
         const currentList = getList(currentListID);
         const currentTask = currentList.getTask(currentTaskID);
-
         const subtaskID = listItem.dataset.id;
 
-        currentTask.deleteSubtask(subtaskID);
+        const deleteSubtaskButton = event.target.closest(".delete-subtask");
 
-        ui.displaySubtasks(currentTask.getSubTasks());
+        const checkbox = event.target.closest(".checkbox");
+
+        if (deleteSubtaskButton) {
+            currentTask.deleteSubtask(subtaskID);
+            ui.displaySubtasks(currentTask.getSubTasks());
+        }
+        else if (checkbox) {
+            checkbox.classList.toggle("checked");
+            currentTask.getSubTask(subtaskID).toggleComplete();
+        }
     });
 })();
 
