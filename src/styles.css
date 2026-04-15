@@ -26,6 +26,8 @@
     --tertiary-color: #A6B1E1;
     --quaternary-color: #424874;
     --input-color: #F0F0F0;
+    --checkbox-color: #d3d3d3;
+    --checkbox-hover-color: #a9a9a9;
 }
 
 body {
@@ -177,7 +179,7 @@ main .modal {
     list-style-type: none;
 }
 
-.tasks li {
+.tasks .task {
     display: flex;
     border: 1px solid black;
     border-radius: 5px;
@@ -187,11 +189,24 @@ main .modal {
     transition: transform 0.3s ease;
 }
 
-.tasks li:hover {
+.tasks .task:hover {
     transform: scale(1.03);
 }
 
-.tasks .delete-task {
+.task .checkbox {
+    border: 1px solid black;
+    width: 25px;
+    height: 25px;
+    background-color: var(--checkbox-color);
+}
+
+.task .checkbox:hover {
+    background-color: var(--checkbox-hover-color);
+}
+
+
+
+.task .delete-task {
     width: 20px;
     background: none;
     border: none;

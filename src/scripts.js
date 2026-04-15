@@ -158,7 +158,6 @@ function removeItemFromArray(id, array) {
     array.splice(index, 1);
 }
 
-
 const ui = (() => {
     function displayLists(lists) {
         const toDoListsElement = document.querySelector(".todo-lists");
@@ -204,18 +203,27 @@ const ui = (() => {
 
         tasks.forEach(task => {
             const li = document.createElement("li");
-            li.textContent = task.getTitle();
             li.dataset.id = task.getID();
+            li.classList.add("task");
 
-            const trashIcon = document.createElement("img");
-            trashIcon.src = trashCanImg;
-            trashIcon.alt = "trash can icon";
+            const checkbox = document.createElement("div");
+            checkbox.classList.add("checkbox");
+            li.appendChild(checkbox);
+
+            const taskName = document.createElement("div");
+            taskName.classList.add("task-name");
+            taskName.textContent = task.getTitle();
+            li.appendChild(taskName);
 
             const deleteButton = document.createElement("button");
             deleteButton.type = "button";
             deleteButton.classList.add("delete-task");
-            deleteButton.appendChild(trashIcon);
             li.appendChild(deleteButton);
+
+            const trashIcon = document.createElement("img");
+            trashIcon.src = trashCanImg;
+            trashIcon.alt = "trash can icon";
+            deleteButton.appendChild(trashIcon);
 
             tasksListElement.appendChild(li);
         });
@@ -231,7 +239,7 @@ const ui = (() => {
     }
 
     function displayTaskDetails(task) {
-        const taskTitleElement = document.querySelector(".task-title");
+        const taskTitleElement = document.querySelector(".task-header");
         const dueDateElement = document.querySelector("#due-date");
         const priorityElement = document.querySelector("#priority");
         const noteElement = document.querySelector("#note");
