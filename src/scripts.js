@@ -397,11 +397,17 @@ const app = (() => {
 
         const deleteTaskButton = event.target.closest(".delete-task");
 
+        const checkbox = event.target.closest(".checkbox");
+
         if (deleteTaskButton) {
             currentList.deleteTask(currentTaskID);
             currentTaskID = undefined;
             ui.displayTasks(currentList.getTasks())
             ui.hideTaskDetailsModal();
+        }
+        else if (checkbox) {
+            checkbox.classList.toggle("checked");
+            currentTask.toggleComplete();
         }
         else {
             ui.showTaskDetailsModal();

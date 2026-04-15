@@ -28,6 +28,8 @@
     --input-color: #F0F0F0;
     --checkbox-color: #d3d3d3;
     --checkbox-hover-color: #a9a9a9;
+    --checkbox-checked-color: purple;
+    --checkmark-color: #ffffff;
 }
 
 body {
@@ -103,7 +105,6 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-
 }
 
 .new-list-modal {
@@ -194,6 +195,9 @@ main .modal {
 }
 
 .task .checkbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px solid black;
     width: 25px;
     height: 25px;
@@ -204,7 +208,15 @@ main .modal {
     background-color: var(--checkbox-hover-color);
 }
 
+.task .checkbox.checked{
+    background-color: var(--checkbox-checked-color);
+}
 
+.task .checkbox.checked::after{
+    content: "\2713";
+    color: var(--checkmark-color);
+
+}
 
 .task .delete-task {
     width: 20px;
