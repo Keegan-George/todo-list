@@ -58,6 +58,10 @@ function createTask(title, startDate, dueDate, priority, note) {
         complete = !complete;
     }
 
+    function isComplete() {
+        return complete;
+    }
+
     function addSubTask(subtaskTitle) {
         subTasks.push(createSubTask(subtaskTitle));
     }
@@ -87,6 +91,7 @@ function createTask(title, startDate, dueDate, priority, note) {
         getNote,
         setNote,
         toggleComplete,
+        isComplete,
         addSubTask,
         getSubTask,
         deleteSubtask,
@@ -115,7 +120,11 @@ function createSubTask(title) {
         complete = !complete;
     }
 
-    return { getID, getTitle, setTitle, toggleComplete }
+    function isComplete() {
+        return complete;
+    }
+
+    return { getID, getTitle, setTitle, toggleComplete, isComplete }
 }
 
 function createTodoList(title) {
@@ -215,6 +224,10 @@ const ui = (() => {
             checkbox.classList.add("checkbox");
             li.appendChild(checkbox);
 
+            if (task.isComplete()) {
+                checkbox.classList.add("checked");
+            }
+
             const taskName = document.createElement("div");
             taskName.classList.add("task-name");
             taskName.textContent = task.getTitle();
@@ -275,6 +288,10 @@ const ui = (() => {
             const checkbox = document.createElement("div");
             checkbox.classList.add("checkbox");
             li.appendChild(checkbox);
+
+            if(subtask.isComplete()){
+                checkbox.classList.add("checked");
+            }
 
             const subtaskName = document.createElement("div");
             subtaskName.classList.add("subtask-name");
