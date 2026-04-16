@@ -282,6 +282,10 @@ main .task-details {
     width: 65%;
 }
 
+.note-section textarea{
+    resize: none;
+}
+
 .task-details-form .subtasks-section {
     flex-direction: column;
     width: 65%;
