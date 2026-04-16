@@ -105,6 +105,7 @@ body {
     background: none;
     border: none;
     cursor: pointer;
+    margin-left: auto;
 }
 
 .new-list-modal {
@@ -182,6 +183,8 @@ main .modal {
 
 .tasks .task {
     display: flex;
+    align-items: center;
+    gap: 0.40rem;
     border: 1px solid black;
     border-radius: 5px;
     padding: 0.25rem;
@@ -222,6 +225,7 @@ main .modal {
     background: none;
     border: none;
     cursor: pointer;
+    margin-left: auto;
 }
 
 .tasks-modal .new-task-form {
@@ -288,6 +292,7 @@ main .task-details {
 .subtasks .subtask {
     display: flex;
     align-items: center;
+    gap: 0.4rem;
 }
 
 .subtask .checkbox {
