@@ -279,10 +279,12 @@ main .task-details {
 
 .task-details-form .note-section {
     flex-direction: column;
+    width: 65%;
 }
 
 .task-details-form .subtasks-section {
     flex-direction: column;
+    width: 65%;
 }
 
 .subtasks-section .subtasks {
@@ -293,6 +295,11 @@ main .task-details {
     display: flex;
     align-items: center;
     gap: 0.4rem;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0.25rem;
+    margin: 0.25rem;
+    cursor: pointer;
 }
 
 .subtask .checkbox {
@@ -323,6 +330,7 @@ main .task-details {
     background: none;
     border: none;
     cursor: pointer;
+    margin-left: auto;
 }
 
 .hidden {
