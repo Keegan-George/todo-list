@@ -76,7 +76,7 @@ const ui = (() => {
             const priority = task.getPriority();
             if (priority) {
                 const priorityBadge = document.createElement("div");
-                priorityBadge.classList.add("priority-badge", "badge");
+                priorityBadge.classList.add("priority-badge", "badge", priority);
                 priorityBadge.textContent = priority;
                 badges.appendChild(priorityBadge);
             }

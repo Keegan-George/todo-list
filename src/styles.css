@@ -220,6 +220,34 @@ main .modal {
     color: var(--checkmark-color);
 }
 
+.task .badges {
+    display: flex;
+    gap: 0.5rem;  
+    margin-left: 2rem; 
+}
+
+.badges .badge {
+    font-size: 0.6rem;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 2.5px;
+    color: white;
+    background-color: purple;
+}
+
+.priority-badge.P1{
+    background-color: red;
+}
+
+.priority-badge.P2{
+    background-color: orange;
+}
+
+.priority-badge.P3 {
+    background-color: dodgerblue;
+}
+
+
 .task .delete-task {
     width: 20px;
     background: none;
