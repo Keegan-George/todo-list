@@ -1,4 +1,5 @@
 import trashCanImg from "./img/trash-can.svg"
+import {formatDistanceToNow} from "date-fns"
 
 const ui = (() => {
     function displayLists(lists) {
@@ -69,7 +70,10 @@ const ui = (() => {
             if (dueDate) {
                 const dueDateBadge = document.createElement("div");
                 dueDateBadge.classList.add("due-date-badge", "badge");
-                dueDateBadge.textContent = dueDate;
+
+                const timeRemaining = formatDistanceToNow(new Date(dueDate), {addSuffix: true});
+                dueDateBadge.textContent = `Due ${timeRemaining}`;
+
                 badges.appendChild(dueDateBadge);
             }
 
