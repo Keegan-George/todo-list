@@ -110,7 +110,7 @@ const app = (() => {
         if (deleteTaskButton) {
             currentList.deleteTask(currentTaskID);
             currentTaskID = undefined;
-            ui.displayTasks(currentList.getTasks())
+            ui.displayTasks(currentList.getTasks());
             ui.hideTaskDetailsModal();
         }
         else if (checkbox) {
@@ -128,6 +128,7 @@ const app = (() => {
         const currentList = getList(currentListID);
         const task = currentList.getTask(currentTaskID);
         task.setDueDate(dueDateInput.value);
+        ui.displayTasks(currentList.getTasks());
     });
 
     const prioritySelector = document.querySelector("#priority");
@@ -135,6 +136,7 @@ const app = (() => {
         const currentList = getList(currentListID);
         const task = currentList.getTask(currentTaskID);
         task.setPriority(prioritySelector.value);
+        ui.displayTasks(currentList.getTasks());
     });
 
     const noteInput = document.querySelector("#note");
@@ -142,6 +144,7 @@ const app = (() => {
         const currentList = getList(currentListID);
         const task = currentList.getTask(currentTaskID);
         task.setNote(noteInput.value);
+        ui.displayTasks(currentList.getTasks());
     });
 
     const subtaskInput = document.querySelector("#new-subtask-name");
@@ -152,6 +155,7 @@ const app = (() => {
 
         ui.displaySubtasks(task.getSubTasks());
         subtaskInput.value = "";
+        ui.displayTasks(currentList.getTasks());
     });
 
     const taskDetailsForm = document.querySelector(".task-details-form");
@@ -176,6 +180,7 @@ const app = (() => {
         if (deleteSubtaskButton) {
             currentTask.deleteSubtask(subtaskID);
             ui.displaySubtasks(currentTask.getSubTasks());
+            ui.displayTasks(currentList.getTasks());
         }
         else if (checkbox) {
             checkbox.classList.toggle("checked");

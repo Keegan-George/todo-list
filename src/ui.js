@@ -61,6 +61,42 @@ const ui = (() => {
             taskName.textContent = task.getTitle();
             li.appendChild(taskName);
 
+            const badges = document.createElement("div");
+            badges.classList.add("badges");
+            li.appendChild(badges);
+
+            const dueDate = task.getDueDate();
+            if (dueDate) {
+                const dueDateBadge = document.createElement("div");
+                dueDateBadge.classList.add("due-date-badge", "badge");
+                dueDateBadge.textContent = dueDate;
+                badges.appendChild(dueDateBadge);
+            }
+
+            const priority = task.getPriority();
+            if (priority) {
+                const priorityBadge = document.createElement("div");
+                priorityBadge.classList.add("priority-badge", "badge");
+                priorityBadge.textContent = priority;
+                badges.appendChild(priorityBadge);
+            }
+
+            if (task.getNote()) {
+                const noteBadge = document.createElement("div");
+                noteBadge.classList.add("note-badge", "badge");
+                noteBadge.textContent = "See note";
+                badges.appendChild(noteBadge);
+            }
+
+            const subtasks = task.getSubTasks();
+            const numberOfSubtasks = subtasks.length
+            if (numberOfSubtasks) {
+                const subtasksBadge = document.createElement("div");
+                subtasksBadge.classList.add("subtasks-badge", "badge");
+                subtasksBadge.textContent = `${numberOfSubtasks} subtasks`;
+                badges.appendChild(subtasksBadge);
+            }
+
             const deleteButton = document.createElement("button");
             deleteButton.type = "button";
             deleteButton.classList.add("delete-task");
