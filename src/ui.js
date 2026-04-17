@@ -93,7 +93,8 @@ const ui = (() => {
             if (numberOfSubtasks) {
                 const subtasksBadge = document.createElement("div");
                 subtasksBadge.classList.add("subtasks-badge", "badge");
-                subtasksBadge.textContent = `${numberOfSubtasks} subtasks`;
+                subtasksBadge.textContent = `${numberOfSubtasks} ${numberOfSubtasks > 1 ? "subtasks" : "subtask"}`;
+
                 badges.appendChild(subtasksBadge);
             }
 
