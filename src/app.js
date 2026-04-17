@@ -71,6 +71,8 @@ const app = (() => {
             ui.showTasksModal();
             ui.displayTasks(list.getTasks());
         }
+
+        ui.hideTaskDetailsModal();
     });
 
     const newTaskForm = document.querySelector(".new-task-form");

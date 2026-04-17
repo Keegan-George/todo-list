@@ -73,8 +73,6 @@ const ui = (() => {
 
             tasksListElement.appendChild(li);
         });
-
-        hideTaskDetailsModal();
     }
 
     const taskDetailsModal = document.querySelector(".task-details");
