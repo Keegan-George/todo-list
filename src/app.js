@@ -3,9 +3,13 @@ import { createTask, createSubTask, createTodoList, getItemInArray, removeItemFr
 
 
 const app = (() => {
-    const lists = [];
+    let lists = [];
     let currentListID = undefined;
     let currentTaskID = undefined;
+
+    function saveLists() {
+        localStorage.setItem("savedLists", JSON.stringify(lists));
+    }
 
     const newListModal = document.querySelector(".new-list-modal");
 
@@ -40,6 +44,7 @@ const app = (() => {
         if (!newListName) { return; }
 
         lists.push(createTodoList(newListName));
+        saveLists();
 
         newListForm.reset();
         newListModal.classList.toggle("hidden");
@@ -65,6 +70,7 @@ const app = (() => {
             ui.hideTasksModal();
             ui.displayLists(lists);
             ui.displayListTitle("");
+            saveLists();
         }
         else {
             ui.displayListTitle(list.getTitle());
@@ -86,6 +92,7 @@ const app = (() => {
         const currentList = getList(currentListID);
 
         currentList.addTask(newTaskName);
+        saveLists();
 
         ui.displayTasks(currentList.getTasks());
 
@@ -112,10 +119,12 @@ const app = (() => {
             currentTaskID = undefined;
             ui.displayTasks(currentList.getTasks());
             ui.hideTaskDetailsModal();
+            saveLists();
         }
         else if (checkbox) {
             checkbox.classList.toggle("checked");
             currentTask.toggleComplete();
+            saveLists();
         }
         else {
             ui.showTaskDetailsModal();
@@ -128,6 +137,7 @@ const app = (() => {
         const currentList = getList(currentListID);
         const task = currentList.getTask(currentTaskID);
         task.setDueDate(dueDateInput.value);
+        saveLists();
         ui.displayTasks(currentList.getTasks());
     });
 
@@ -136,6 +146,7 @@ const app = (() => {
         const currentList = getList(currentListID);
         const task = currentList.getTask(currentTaskID);
         task.setPriority(prioritySelector.value);
+        saveLists();
         ui.displayTasks(currentList.getTasks());
     });
 
@@ -144,6 +155,7 @@ const app = (() => {
         const currentList = getList(currentListID);
         const task = currentList.getTask(currentTaskID);
         task.setNote(noteInput.value);
+        saveLists();
         ui.displayTasks(currentList.getTasks());
     });
 
@@ -152,6 +164,7 @@ const app = (() => {
         const currentList = getList(currentListID);
         const task = currentList.getTask(currentTaskID);
         task.addSubTask(subtaskInput.value);
+        saveLists();
 
         ui.displaySubtasks(task.getSubTasks());
         subtaskInput.value = "";
@@ -181,10 +194,12 @@ const app = (() => {
             currentTask.deleteSubtask(subtaskID);
             ui.displaySubtasks(currentTask.getSubTasks());
             ui.displayTasks(currentList.getTasks());
+            saveLists();
         }
         else if (checkbox) {
             checkbox.classList.toggle("checked");
             currentTask.getSubTask(subtaskID).toggleComplete();
+            saveLists();
         }
     });
 })();
