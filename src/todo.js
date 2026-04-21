@@ -1,3 +1,4 @@
+import { add } from "date-fns";
 
 function createTask(title, startDate, dueDate, priority, note) {
     const id = crypto.randomUUID();
@@ -77,6 +78,19 @@ function createTask(title, startDate, dueDate, priority, note) {
         return subTasks;
     }
 
+    function toJSON() {
+        return {
+            id: getID(),
+            title: getTitle(),
+            startDate: getStartDate(),
+            dueDate: getDueDate(),
+            priority: getPriority(),
+            note: getNote(),
+            complete: isComplete(),
+            subtasks: getSubTasks(),
+        }
+    }
+
     return {
         getID,
         getTitle,
@@ -94,7 +108,8 @@ function createTask(title, startDate, dueDate, priority, note) {
         addSubTask,
         getSubTask,
         deleteSubtask,
-        getSubTasks
+        getSubTasks,
+        toJSON,
     };
 }
 
@@ -123,12 +138,21 @@ function createSubTask(title) {
         return complete;
     }
 
+    function toJSON() {
+        return {
+            id: getID(),
+            title: getTitle(),
+            complete: isComplete(),
+        }
+    }
+
     return {
         getID,
         getTitle,
         setTitle,
         toggleComplete,
-        isComplete
+        isComplete,
+        toJSON,
     }
 }
 
@@ -165,6 +189,14 @@ function createTodoList(title) {
         removeItemFromArray(id, tasks);
     }
 
+    function toJSON() {
+        return {
+            id: getID(),
+            title: getTitle(),
+            tasks: getTasks(),
+        }
+    }
+
     return {
         getID,
         getTitle,
@@ -172,7 +204,8 @@ function createTodoList(title) {
         getTasks,
         addTask,
         getTask,
-        deleteTask
+        deleteTask,
+        toJSON,
     };
 }
 
