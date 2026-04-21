@@ -1,9 +1,8 @@
 import { add } from "date-fns";
 
-function createTask(title, startDate, dueDate, priority, note) {
+function createTask(title, dueDate, priority, note) {
     const id = crypto.randomUUID();
     let taskTitle = title;
-    let taskStartDate = startDate;
     let taskDueDate = dueDate;
     let taskPriority = priority;
     let taskNote = note;
@@ -20,14 +19,6 @@ function createTask(title, startDate, dueDate, priority, note) {
 
     function setTitle(newTitle) {
         taskTitle = newTitle;
-    }
-
-    function getStartDate() {
-        return taskStartDate;
-    }
-
-    function setStartDate(newDate) {
-        taskStartDate = newDate;
     }
 
     function getDueDate() {
@@ -82,7 +73,6 @@ function createTask(title, startDate, dueDate, priority, note) {
         return {
             id: getID(),
             title: getTitle(),
-            startDate: getStartDate(),
             dueDate: getDueDate(),
             priority: getPriority(),
             note: getNote(),
@@ -95,8 +85,6 @@ function createTask(title, startDate, dueDate, priority, note) {
         getID,
         getTitle,
         setTitle,
-        getStartDate,
-        setStartDate,
         getDueDate,
         setDueDate,
         getPriority,
