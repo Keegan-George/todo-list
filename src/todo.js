@@ -101,10 +101,10 @@ function createTask(title, dueDate, priority, note) {
     };
 }
 
-function createSubTask(title) {
-    const id = crypto.randomUUID();
+function createSubTask(title, id = crypto.randomUUID(), complete = false) {
+    const subtaskID = id;
     let subTaskTitle = title;
-    let complete = false;
+    let subtaskComplete = complete;
 
     function getID() {
         return id;
@@ -119,11 +119,11 @@ function createSubTask(title) {
     }
 
     function toggleComplete() {
-        complete = !complete;
+        subtaskComplete = !subtaskComplete;
     }
 
     function isComplete() {
-        return complete;
+        return subtaskComplete;
     }
 
     function toJSON() {
