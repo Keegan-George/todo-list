@@ -144,13 +144,13 @@ function createSubTask(title) {
     }
 }
 
-function createTodoList(title) {
-    const id = crypto.randomUUID();
+function createTodoList(title, id = crypto.randomUUID(), tasks = []) {
+    const todoID = id;
     let toDoTitle = title;
-    let tasks = [];
+    let toDoTasks = tasks;
 
     function getID() {
-        return id;
+        return todoID;
     }
 
     function getTitle() {
@@ -162,19 +162,19 @@ function createTodoList(title) {
     }
 
     function getTasks() {
-        return tasks;
+        return toDoTasks;
     }
 
     function addTask(title, dueDate, priority, note) {
-        tasks.push(createTask(title, dueDate, priority, note));
+        toDoTasks.push(createTask(title, dueDate, priority, note));
     }
 
     function getTask(id) {
-        return getItemInArray(id, tasks);
+        return getItemInArray(id, toDoTasks);
     }
 
     function deleteTask(id) {
-        removeItemFromArray(id, tasks);
+        removeItemFromArray(id, toDoTasks);
     }
 
     function toJSON() {
