@@ -1,7 +1,6 @@
 import { ui } from "./ui.js";
 import { createTask, createSubTask, createTodoList, getItemInArray, removeItemFromArray } from "./todo.js";
 
-
 const app = (() => {
     let lists = [];
     let currentListID = undefined;
@@ -12,9 +11,30 @@ const app = (() => {
 
         if (!data) { return; }
 
-        console.log("hello");
+        const savedLists = [];
 
-      
+        data.forEach(list => {
+            const tasks = [];
+
+            if (list.tasks.length) {
+                list.tasks.forEach(task => {
+                    const subtasks = [];
+
+                    if(task.subtasks.length){
+                        task.subtasks.forEach(subtask => {
+                            subtasks.push(createSubTask(subtask.title, subtask.id, subtask.complete));
+                        })
+                    }
+                    tasks.push(createTask(task.title, task.id, task.dueDate, task.priority, task.note, task.complete, subtasks));
+                })
+            }
+
+            savedLists.push(createTodoList(list.title, list.id, tasks));
+        });
+
+        lists = savedLists;
+
+        ui.displayLists(lists)
     }
 
     loadLists();
