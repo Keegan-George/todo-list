@@ -4,12 +4,13 @@
 
 <head>
     <title>Todo List</title>
-    <meta chartset="utf-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
     <div class="container">
-        <nav class="sidebar">
+        <aside class="sidebar">
             <section class="user-section">
                 <img src="./img/account-icon.svg" alt="account icon in circle" class="account-icon">
                 <div class="username">Ripley</div>
@@ -29,7 +30,7 @@
 
             <div class="new-list-modal hidden">
                 <h3 class="new-list-modal-label">Create New List</h3>
-                <form action="" class="new-list-form">
+                <form action="#" class="new-list-form">
                     <input type="text" id="new-list-name" name="new-list-name">
                     <div class="modal-buttons">
                         <button type="button" class="new-list-cancel">Cancel</button>
@@ -37,26 +38,26 @@
                     </div>
                 </form>
             </div>
-        </nav>
+        </aside>
 
         <main>
             <h2 class="list-title"></h2>
             <div class="modal tasks-modal hidden">
-                <tasks class="tasks-container">
+                <div class="tasks-container">
                     <ul class="tasks">
                     </ul>
-                    <form action="" class="new-task-form">
+                    <form action="#" class="new-task-form">
                         <input type="text" id="new-task-name" name="new-task-name">
                         <button type="submit" class="new-task-submit">
                             <img src="./img/arrow-up-submit.svg" alt="arrow up submit icon"
                                 class="arrow-up-submit-icon">
                         </button>
                     </form>
-                </tasks>
+                </div>
             </div>
 
             <div class="modal task-details hidden">
-                <h1 class="task-header"></h1>
+                <h2 class="task-header"></h2>
 
                 <form action="" class="task-details-form">
                     <section class="due-date-priority-section">
