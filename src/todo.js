@@ -1,16 +1,16 @@
 import { add } from "date-fns";
 
-function createTask(title, dueDate, priority, note) {
-    const id = crypto.randomUUID();
+function createTask(title, id = crypto.randomUUID(), dueDate, priority, note, complete = false, subtasks = []) {
+    const taskID = id;
     let taskTitle = title;
     let taskDueDate = dueDate;
     let taskPriority = priority;
     let taskNote = note;
-    let complete = false;
-    let subTasks = [];
+    let taskComplete = complete;
+    let taskSubTasks = subtasks;
 
     function getID() {
-        return id;
+        return taskID;
     }
 
     function getTitle() {
@@ -46,27 +46,27 @@ function createTask(title, dueDate, priority, note) {
     }
 
     function toggleComplete() {
-        complete = !complete;
+        taskComplete = !taskComplete;
     }
 
     function isComplete() {
-        return complete;
+        return taskComplete;
     }
 
     function addSubTask(subtaskTitle) {
-        subTasks.push(createSubTask(subtaskTitle));
+        taskSubTasks.push(createSubTask(subtaskTitle));
     }
 
     function getSubTask(id) {
-        return getItemInArray(id, subTasks);
+        return getItemInArray(id, taskSubTasks);
     }
 
     function deleteSubtask(id) {
-        removeItemFromArray(id, subTasks);
+        removeItemFromArray(id, taskSubTasks);
     }
 
     function getSubTasks() {
-        return subTasks;
+        return taskSubTasks;
     }
 
     function toJSON() {
