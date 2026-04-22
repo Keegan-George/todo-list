@@ -7,6 +7,18 @@ const app = (() => {
     let currentListID = undefined;
     let currentTaskID = undefined;
 
+    function loadLists() {
+        const data = JSON.parse(localStorage.getItem("savedLists"));
+
+        if (!data) { return; }
+
+        console.log("hello");
+
+      
+    }
+
+    loadLists();
+
     function saveLists() {
         localStorage.setItem("savedLists", JSON.stringify(lists));
     }
