@@ -1,6 +1,8 @@
 import { ui } from "./ui.js";
 import { createTask, createSubtask, createTodoList, getItemInArray, removeItemFromArray } from "./todo.js";
 
+//DOM Static Element References
+
 const app = (() => {
     let lists = [];
     let currentListID = undefined;
@@ -11,33 +13,31 @@ const app = (() => {
 
         if (!data) { return; }
 
-        const savedLists = [];
-
-        data.forEach(list => {
-            const tasks = [];
-
-            if (list.tasks.length) {
-                list.tasks.forEach(task => {
-                    const subtasks = [];
-
-                    if(task.subtasks.length){
-                        task.subtasks.forEach(subtask => {
-                            subtasks.push(createSubtask(subtask.title, subtask.id, subtask.complete));
-                        })
-                    }
-                    tasks.push(createTask(task.title, task.id, task.dueDate, task.priority, task.note, task.complete, subtasks));
-                })
-            }
-
-            savedLists.push(createTodoList(list.title, list.id, tasks));
-        });
-
-        lists = savedLists;
+        lists = data.map(rebuildList);
 
         ui.displayLists(lists)
     }
 
     loadLists();
+
+    // Help functions for rebuilding lists, tasks and subtasks
+    function rebuildSubtask(subtask) {
+        return createSubtask(subtask.title, subtask.id, subtask.complete);
+    }
+
+    function rebuildTask(task) {
+        const subtasks = task.subtasks.map(rebuildSubtask);
+
+        return createTask(task.title, task.id, task.dueDate, task.priority, task.note, task.complete, subtasks);
+    }
+
+    function rebuildList(list) {
+        const tasks = list.tasks.map(rebuildTask);
+
+        return createTodoList(list.title, list.id, tasks);
+    }
+
+
 
     function saveLists() {
         localStorage.setItem("savedLists", JSON.stringify(lists));
