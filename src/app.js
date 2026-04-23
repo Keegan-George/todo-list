@@ -23,22 +23,10 @@ const subtaskInput = document.querySelector("#new-subtask-name");
 
 const app = (() => {
     let lists = [];
-    let currentListID = undefined;
-    let currentTaskID = undefined;
+    let currentListID = null;
+    let currentTaskID = null;
 
-    function loadLists() {
-        const data = JSON.parse(localStorage.getItem("savedLists"));
-
-        if (!data) { return; }
-
-        lists = data.map(rebuildList);
-
-        ui.displayLists(lists)
-    }
-
-    loadLists();
-
-    // Helper functions for rebuilding lists, tasks and subtasks
+    // Helper functions for rebuilding subtasks, tasks and lists
     function rebuildSubtask(subtask) {
         return createSubtask(subtask.title, subtask.id, subtask.complete);
     }
@@ -55,12 +43,41 @@ const app = (() => {
         return createTodoList(list.title, list.id, tasks);
     }
 
+    //Helper functions for retrieving the current list and current task
+    function getCurrentList() {
+        return getList(currentListID);
+    }
+
+    function getCurrentTask() {
+        return getCurrentList().getTask(currentTaskID);
+    }
+
+    //Helper funtions for refreshing the UI
+    function refreshTasksUI() {
+        ui.displayTasks(getCurrentList().getTasks());
+    }
+
+    function refreshSubtasksUI() {
+        ui.displaySubtasks(getCurrentTask().getSubtasks());
+    }
+
+
+    function loadLists() {
+        const data = JSON.parse(localStorage.getItem("savedLists"));
+
+        if (!data) { return; }
+
+        lists = data.map(rebuildList);
+
+        ui.displayLists(lists)
+    }
+
+    loadLists();
+
 
     function saveLists() {
         localStorage.setItem("savedLists", JSON.stringify(lists));
     }
-
-
 
     function getList(id) {
         return getItemInArray(id, lists);
@@ -69,6 +86,7 @@ const app = (() => {
     function deleteList(id) {
         removeItemFromArray(id, lists);
     }
+
 
     function closeNewListModal() {
         newListModal.classList.toggle("hidden");
@@ -124,7 +142,7 @@ const app = (() => {
         else {
             ui.displayListTitle(list.getTitle());
             ui.showTasksModal();
-            ui.displayTasks(list.getTasks());
+            refreshTasksUI();
         }
 
         ui.hideTaskDetailsModal();
@@ -138,17 +156,15 @@ const app = (() => {
 
         if (!newTaskName) { return; }
 
-        const currentList = getList(currentListID);
+        const currentList = getCurrentList();
 
         currentList.addTask(newTaskName);
         saveLists();
 
-        ui.displayTasks(currentList.getTasks());
+        refreshTasksUI();
 
         newTaskForm.reset();
     });
-
-    //Tasks
 
     tasksListElement.addEventListener("click", event => {
         const taskItem = event.target.closest("li");
@@ -156,8 +172,8 @@ const app = (() => {
         if (!taskItem) { return; }
 
         currentTaskID = taskItem.dataset.id;
-        const currentList = getList(currentListID);
-        const currentTask = currentList.getTask(currentTaskID);
+        const currentList = getCurrentList();
+        const currentTask = getCurrentTask();
 
         const deleteTaskButton = event.target.closest(".delete-task");
 
@@ -166,7 +182,7 @@ const app = (() => {
         if (deleteTaskButton) {
             currentList.deleteTask(currentTaskID);
             currentTaskID = undefined;
-            ui.displayTasks(currentList.getTasks());
+            refreshTasksUI();
             ui.hideTaskDetailsModal();
             saveLists();
         }
@@ -181,58 +197,61 @@ const app = (() => {
         }
     });
 
-
     dueDateInput.addEventListener("change", () => {
-        const currentList = getList(currentListID);
-        const task = currentList.getTask(currentTaskID);
+        const currentList = getCurrentList();
+        const task = getCurrentTask();
+
         task.setDueDate(dueDateInput.value);
         saveLists();
-        ui.displayTasks(currentList.getTasks());
+        refreshTasksUI();
     });
-
 
     prioritySelector.addEventListener("change", () => {
-        const currentList = getList(currentListID);
-        const task = currentList.getTask(currentTaskID);
-        task.setPriority(prioritySelector.value);
-        saveLists();
-        ui.displayTasks(currentList.getTasks());
-    });
+        const currentList = getCurrentList();
+        const task = getCurrentTask();
 
+        task.setPriority(prioritySelector.value);
+
+        saveLists();
+
+        refreshTasksUI();
+    });
 
     noteInput.addEventListener("change", () => {
-        const currentList = getList(currentListID);
-        const task = currentList.getTask(currentTaskID);
-        task.setNote(noteInput.value);
-        saveLists();
-        ui.displayTasks(currentList.getTasks());
-    });
+        const currentList = getCurrentList();
+        const task = getCurrentTask();
 
+        task.setNote(noteInput.value);
+
+        saveLists();
+
+        refreshTasksUI();
+    });
 
     subtaskInput.addEventListener("change", () => {
-        const currentList = getList(currentListID);
-        const task = currentList.getTask(currentTaskID);
-        task.addSubtask(subtaskInput.value);
+        const currentList = getCurrentList();
+        const currentTask = getCurrentTask();
+
+        currentTask.addSubtask(subtaskInput.value);
+        subtaskInput.value = "";
+
         saveLists();
 
-        ui.displaySubtasks(task.getSubtasks());
-        subtaskInput.value = "";
-        ui.displayTasks(currentList.getTasks());
+        refreshSubtasksUI();
+        refreshTasksUI();
     });
-
 
     taskDetailsForm.addEventListener("submit", event => {
         event.preventDefault();
     });
-
 
     subtasksListElement.addEventListener("click", event => {
         const listItem = event.target.closest("li");
 
         if (!listItem) { return; }
 
-        const currentList = getList(currentListID);
-        const currentTask = currentList.getTask(currentTaskID);
+        const currentList = getCurrentList();
+        const currentTask = getCurrentTask();
         const subtaskID = listItem.dataset.id;
 
         const deleteSubtaskButton = event.target.closest(".delete-subtask");
@@ -241,8 +260,9 @@ const app = (() => {
 
         if (deleteSubtaskButton) {
             currentTask.deleteSubtask(subtaskID);
-            ui.displaySubtasks(currentTask.getSubtasks());
-            ui.displayTasks(currentList.getTasks());
+
+            refreshSubtasksUI();
+            refreshTasksUI();
             saveLists();
         }
         else if (checkbox) {
