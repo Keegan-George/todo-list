@@ -2,6 +2,24 @@ import { ui } from "./ui.js";
 import { createTask, createSubtask, createTodoList, getItemInArray, removeItemFromArray } from "./todo.js";
 
 //DOM Static Element References
+const newListModal = document.querySelector(".new-list-modal");
+const newListForm = document.querySelector(".new-list-form");
+const newListNameInput = document.querySelector("#new-list-name");
+const addListButton = document.querySelector(".add-list");
+const newListCancelButton = document.querySelector(".new-list-cancel");
+const toDoLists = document.querySelector(".todo-lists");
+
+const newTaskForm = document.querySelector(".new-task-form");
+const newTaskNameInput = document.querySelector("#new-task-name");
+const tasksListElement = document.querySelector(".tasks");
+
+const taskDetailsForm = document.querySelector(".task-details-form");
+const dueDateInput = document.querySelector("#due-date");
+const prioritySelector = document.querySelector("#priority");
+const noteInput = document.querySelector("#note");
+const subtasksListElement = document.querySelector("#subtasks");
+const subtaskInput = document.querySelector("#new-subtask-name");
+
 
 const app = (() => {
     let lists = [];
@@ -20,7 +38,7 @@ const app = (() => {
 
     loadLists();
 
-    // Help functions for rebuilding lists, tasks and subtasks
+    // Helper functions for rebuilding lists, tasks and subtasks
     function rebuildSubtask(subtask) {
         return createSubtask(subtask.title, subtask.id, subtask.complete);
     }
@@ -38,12 +56,11 @@ const app = (() => {
     }
 
 
-
     function saveLists() {
         localStorage.setItem("savedLists", JSON.stringify(lists));
     }
 
-    const newListModal = document.querySelector(".new-list-modal");
+
 
     function getList(id) {
         return getItemInArray(id, lists);
@@ -57,21 +74,21 @@ const app = (() => {
         newListModal.classList.toggle("hidden");
     }
 
-    const addListButton = document.querySelector(".add-list");
+
     addListButton.addEventListener("click", () => {
         closeNewListModal()
     });
 
-    const newListCancelButton = document.querySelector(".new-list-cancel");
+
     newListCancelButton.addEventListener("click", () => {
         closeNewListModal();
     });
 
-    const newListForm = document.querySelector(".new-list-form");
+
     newListForm.addEventListener("submit", event => {
         event.preventDefault();
 
-        const newListName = document.querySelector("#new-list-name").value;
+        const newListName = newListNameInput.value;
 
         if (!newListName) { return; }
 
@@ -84,7 +101,7 @@ const app = (() => {
         ui.displayLists(lists);
     });
 
-    const toDoLists = document.querySelector(".todo-lists");
+
     toDoLists.addEventListener("click", event => {
         const listItem = event.target.closest("li");
 
@@ -113,11 +130,11 @@ const app = (() => {
         ui.hideTaskDetailsModal();
     });
 
-    const newTaskForm = document.querySelector(".new-task-form");
+
     newTaskForm.addEventListener("submit", event => {
         event.preventDefault();
 
-        const newTaskName = document.querySelector("#new-task-name").value;
+        const newTaskName = newTaskNameInput.value;
 
         if (!newTaskName) { return; }
 
@@ -132,7 +149,7 @@ const app = (() => {
     });
 
     //Tasks
-    const tasksListElement = document.querySelector(".tasks");
+
     tasksListElement.addEventListener("click", event => {
         const taskItem = event.target.closest("li");
 
@@ -164,7 +181,7 @@ const app = (() => {
         }
     });
 
-    const dueDateInput = document.querySelector("#due-date");
+
     dueDateInput.addEventListener("change", () => {
         const currentList = getList(currentListID);
         const task = currentList.getTask(currentTaskID);
@@ -173,7 +190,7 @@ const app = (() => {
         ui.displayTasks(currentList.getTasks());
     });
 
-    const prioritySelector = document.querySelector("#priority");
+
     prioritySelector.addEventListener("change", () => {
         const currentList = getList(currentListID);
         const task = currentList.getTask(currentTaskID);
@@ -182,7 +199,7 @@ const app = (() => {
         ui.displayTasks(currentList.getTasks());
     });
 
-    const noteInput = document.querySelector("#note");
+
     noteInput.addEventListener("change", () => {
         const currentList = getList(currentListID);
         const task = currentList.getTask(currentTaskID);
@@ -191,7 +208,7 @@ const app = (() => {
         ui.displayTasks(currentList.getTasks());
     });
 
-    const subtaskInput = document.querySelector("#new-subtask-name");
+
     subtaskInput.addEventListener("change", () => {
         const currentList = getList(currentListID);
         const task = currentList.getTask(currentTaskID);
@@ -203,12 +220,12 @@ const app = (() => {
         ui.displayTasks(currentList.getTasks());
     });
 
-    const taskDetailsForm = document.querySelector(".task-details-form");
+
     taskDetailsForm.addEventListener("submit", event => {
         event.preventDefault();
     });
 
-    const subtasksListElement = document.querySelector("#subtasks");
+
     subtasksListElement.addEventListener("click", event => {
         const listItem = event.target.closest("li");
 
