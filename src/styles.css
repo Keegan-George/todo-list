@@ -41,6 +41,11 @@
     /* border radius degree*/
     --border-radius-soft: 0.3rem;
     --border-radius-strong: 1rem;
+
+    /* font size */
+    --font-size-xs: 0.6rem;
+    --font-size-s: 1.25rem;
+    --font-size-m: 1.5rem;
 }
 
 body {
@@ -74,7 +79,7 @@ body {
 }
 
 .user-section .username {
-    font-size: 1.25rem;
+    font-size: var(--font-size-s);
     font-weight: 700;
 }
 
@@ -85,7 +90,7 @@ body {
 }
 
 .lists-section-header .lists-section-title {
-    font-size: 1.5rem;
+    font-size: var(--font-size-m);
     font-weight: 700;
 }
 
@@ -100,7 +105,7 @@ body {
     display: flex;
     flex-direction: column;
     list-style-type: none;
-    font-size: 1.25rem;
+    font-size: var(--font-size-s);
     margin-left: var(--space-m);
     gap: var(--space-xs);
     cursor: pointer;
@@ -251,7 +256,7 @@ main .modal {
 }
 
 .badges .badge {
-    font-size: 0.6rem;
+    font-size: var(--font-size-xs);
     border: 1px solid black;
     border-radius: var(--border-radius-soft);
     padding: var(--space-xxs);
@@ -298,6 +303,11 @@ main .modal {
     border: none;
     cursor: pointer;
     background: none;
+    transition: transform 0.4s ease;
+}
+
+.new-task-form button:hover {
+    transform: scale(1.25);
 }
 
 main .task-details {
@@ -317,7 +327,7 @@ main .task-details {
 .task-details-form label,
 .task-details-form p {
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: var(--font-size-s);
 }
 
 .task-details-form section {
@@ -386,6 +396,11 @@ main .task-details {
     border: none;
     cursor: pointer;
     margin-left: auto;
+}
+
+#new-subtask-name {
+    border-radius: var(--border-radius-soft);
+    padding: var(--space-xxs)
 }
 
 .hidden {
