@@ -75,7 +75,7 @@ function createTask(title, id = crypto.randomUUID(), dueDate, priority, note, co
             priority: getPriority(),
             note: getNote(),
             complete: isComplete(),
-            subtasks: getSubtasks(),
+            subtasks: getSubtasks().map(subtask => subtask.toJSON()),
         }
     }
 
@@ -179,7 +179,7 @@ function createTodoList(title, id = crypto.randomUUID(), tasks = []) {
         return {
             id: getID(),
             title: getTitle(),
-            tasks: getTasks(),
+            tasks: getTasks().map(task => task.toJSON()),
         }
     }
 
