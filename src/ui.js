@@ -1,9 +1,23 @@
 import trashCanImg from "./img/trash-can.svg"
-import {formatDistanceToNow} from "date-fns"
+import { formatDistanceToNow } from "date-fns"
+
+//DOM Static Element References
+const toDoListsElement = document.querySelector(".todo-lists");
+const listTitleElement = document.querySelector(".list-title");
+const tasksListElement = document.querySelector(".tasks");
+
+const tasksModal = document.querySelector(".tasks-modal");
+const taskDetailsModal = document.querySelector(".task-details");
+
+const taskTitleElement = document.querySelector(".task-header");
+const dueDateElement = document.querySelector("#due-date");
+const priorityElement = document.querySelector("#priority");
+const noteElement = document.querySelector("#note");
+const subtasksListElement = document.querySelector("#subtasks");
+
 
 const ui = (() => {
     function displayLists(lists) {
-        const toDoListsElement = document.querySelector(".todo-lists");
         toDoListsElement.replaceChildren();
 
         lists.forEach(list => {
@@ -11,21 +25,16 @@ const ui = (() => {
             li.textContent = list.getTitle();
             li.dataset.id = list.getID();
 
-            const trashIcon = document.createElement("img");
-            trashIcon.src = trashCanImg;
-            trashIcon.alt = "trash can icon";
-
             const deleteButton = document.createElement("button");
             deleteButton.type = "button";
             deleteButton.classList.add("delete-list");
-            deleteButton.appendChild(trashIcon);
+            deleteButton.appendChild(createTrashIcon());
             li.appendChild(deleteButton);
 
             toDoListsElement.appendChild(li);
         });
     }
 
-    const tasksModal = document.querySelector(".tasks-modal");
     function showTasksModal() {
         tasksModal.classList.remove("hidden");
     }
@@ -36,12 +45,10 @@ const ui = (() => {
     }
 
     function displayListTitle(title) {
-        const listTitle = document.querySelector(".list-title");
-        listTitle.textContent = title;
+        listTitleElement.textContent = title;
     }
 
     function displayTasks(tasks) {
-        const tasksListElement = document.querySelector(".tasks");
         tasksListElement.replaceChildren();
 
         tasks.forEach(task => {
@@ -49,13 +56,7 @@ const ui = (() => {
             li.dataset.id = task.getID();
             li.classList.add("task");
 
-            const checkbox = document.createElement("div");
-            checkbox.classList.add("checkbox");
-            li.appendChild(checkbox);
-
-            if (task.isComplete()) {
-                checkbox.classList.add("checked");
-            }
+            li.appendChild(createCheckbox(task.isComplete()));
 
             const taskName = document.createElement("div");
             taskName.classList.add("task-name");
@@ -68,38 +69,25 @@ const ui = (() => {
 
             const dueDate = task.getDueDate();
             if (dueDate) {
-                const dueDateBadge = document.createElement("div");
-                dueDateBadge.classList.add("due-date-badge", "badge");
-
-                const timeRemaining = formatDistanceToNow(new Date(dueDate), {addSuffix: true});
-                dueDateBadge.textContent = `Due ${timeRemaining}`;
-
-                badges.appendChild(dueDateBadge);
+                const timeRemaining = formatDistanceToNow(new Date(dueDate), { addSuffix: true });
+                badges.appendChild(createBadge("due-date", `Due ${timeRemaining}`));
             }
 
             const priority = task.getPriority();
             if (priority) {
-                const priorityBadge = document.createElement("div");
-                priorityBadge.classList.add("priority-badge", "badge", priority);
-                priorityBadge.textContent = priority;
+                const priorityBadge = createBadge("priority", priority)
+                priorityBadge.classList.add(priority);
                 badges.appendChild(priorityBadge);
             }
 
             if (task.getNote()) {
-                const noteBadge = document.createElement("div");
-                noteBadge.classList.add("note-badge", "badge");
-                noteBadge.textContent = "See note";
-                badges.appendChild(noteBadge);
+                badges.appendChild(createBadge("note", "See note"));
             }
 
             const subtasks = task.getSubtasks();
             const numberOfSubtasks = subtasks.length
             if (numberOfSubtasks) {
-                const subtasksBadge = document.createElement("div");
-                subtasksBadge.classList.add("subtasks-badge", "badge");
-                subtasksBadge.textContent = `${numberOfSubtasks} ${numberOfSubtasks > 1 ? "subtasks" : "subtask"}`;
-
-                badges.appendChild(subtasksBadge);
+                badges.appendChild(createBadge("subtasks", `${numberOfSubtasks} ${numberOfSubtasks > 1 ? "subtasks" : "subtask"}`));
             }
 
             const deleteButton = document.createElement("button");
@@ -107,16 +95,12 @@ const ui = (() => {
             deleteButton.classList.add("delete-task");
             li.appendChild(deleteButton);
 
-            const trashIcon = document.createElement("img");
-            trashIcon.src = trashCanImg;
-            trashIcon.alt = "trash can icon";
-            deleteButton.appendChild(trashIcon);
+            deleteButton.appendChild(createTrashIcon());
 
             tasksListElement.appendChild(li);
         });
     }
 
-    const taskDetailsModal = document.querySelector(".task-details");
     function showTaskDetailsModal() {
         taskDetailsModal.classList.remove("hidden");
     }
@@ -126,27 +110,21 @@ const ui = (() => {
     }
 
     function displayTaskDetails(task) {
-        const taskTitleElement = document.querySelector(".task-header");
-        const dueDateElement = document.querySelector("#due-date");
-        const priorityElement = document.querySelector("#priority");
-        const noteElement = document.querySelector("#note");
-
         taskTitleElement.textContent = task.getTitle();
 
         const dueDate = task.getDueDate();
-        dueDateElement.value = dueDate === undefined ? "" : dueDate;
+        dueDateElement.value = dueDate ?? "";
 
         const priority = task.getPriority();
-        priorityElement.value = priority === undefined ? "default" : priority;
+        priorityElement.value = priority ?? "";
 
         const note = task.getNote();
-        noteElement.value = note === undefined ? "" : note;
+        noteElement.value = note ?? "";
 
         displaySubtasks(task.getSubtasks());
     }
 
     function displaySubtasks(subtasks) {
-        const subtasksListElement = document.querySelector("#subtasks");
         subtasksListElement.replaceChildren();
 
         subtasks.forEach(subtask => {
@@ -154,13 +132,7 @@ const ui = (() => {
             li.dataset.id = subtask.getID();
             li.classList.add("subtask");
 
-            const checkbox = document.createElement("div");
-            checkbox.classList.add("checkbox");
-            li.appendChild(checkbox);
-
-            if (subtask.isComplete()) {
-                checkbox.classList.add("checked");
-            }
+            li.appendChild(createCheckbox(subtask.isComplete()));
 
             const subtaskName = document.createElement("div");
             subtaskName.classList.add("subtask-name");
@@ -172,13 +144,37 @@ const ui = (() => {
             deleteButton.classList.add("delete-subtask");
             li.appendChild(deleteButton);
 
-            const trashIcon = document.createElement("img");
-            trashIcon.src = trashCanImg;
-            trashIcon.alt = "trash can icon";
-            deleteButton.appendChild(trashIcon);
+            deleteButton.appendChild(createTrashIcon());
 
             subtasksListElement.appendChild(li);
         });
+    }
+
+    //Helper Functions    
+    function createTrashIcon() {
+        const img = document.createElement("img");
+        img.src = trashCanImg;
+        img.alt = "trash can icon";
+        return img;
+    }
+
+    function createCheckbox(isChecked) {
+        const checkbox = document.createElement("div");
+        checkbox.classList.add("checkbox");
+
+        if (isChecked) {
+            checkbox.classList.add("checked");
+        }
+
+        return checkbox;
+    }
+
+    function createBadge(className, text) {
+        const badge = document.createElement("div");
+        badge.classList.add("badge", `${className}-badge`);
+        badge.textContent = text;
+
+        return badge;
     }
 
     return {
