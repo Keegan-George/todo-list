@@ -14,11 +14,12 @@
 
 :root {
     /* spacing */
+    --space-xxs: 0.25rem;
     --space-xs: 0.5rem;
     --space-s: 1rem;
-    --space-sm: 2rem;
-    --space-m: 2.5rem;
-    --space-l: 5rem;
+    --space-m: 2rem;
+    --space-l: 2.5rem;
+    --space-xl: 5rem;
 
     /* colors */
     --primary-color: #F4EEFF;
@@ -30,6 +31,12 @@
     --checkbox-hover-color: #a9a9a9;
     --checkbox-checked-color: purple;
     --checkmark-color: #ffffff;
+
+    /* badge colors */
+    --badge-color-default: purple;
+    --badge-color-P1: red;
+    --badge-color-P2: orange;
+    --badge-color-P3: dodgerblue;
 }
 
 body {
@@ -47,7 +54,7 @@ body {
     display: flex;
     flex-direction: column;
     padding: var(--space-s);
-    gap: var(--space-l);
+    gap: var(--space-xl);
     background-color: var(--secondary-color);
 }
 
@@ -90,7 +97,7 @@ body {
     flex-direction: column;
     list-style-type: none;
     font-size: 1.25rem;
-    margin-left: var(--space-sm);
+    margin-left: var(--space-m);
     gap: var(--space-xs);
     cursor: pointer;
 }
@@ -98,6 +105,11 @@ body {
 .todo-lists li {
     display: flex;
     align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.todo-lists li:hover {
+    transform: scale(1.08);
 }
 
 .todo-lists .delete-list {
@@ -116,12 +128,8 @@ body {
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
-    background: lightgrey;
-    padding: var(--space-s);
-    gap: var(--space-xs);
-    padding: 5px;
-    width: 20%;
-    height: 13%;
+    padding: var(--space-xs);
+    gap: var(--space-s);
     border-radius: 5px;
     background-color: var(--tertiary-color);
 }
@@ -138,7 +146,8 @@ body {
     background-color: var(--input-color);
     border: none;
     border-radius: 5px;
-    padding: 5px
+    padding: var(--space-xs);
+    width: 15rem;
 }
 
 .new-list-form .modal-buttons {
@@ -159,7 +168,7 @@ main {
 
 main .list-title {
     grid-column: 1 / 3;
-    margin: 0.75rem 0.5rem;
+    margin: var(--space-xs);
     background-color: var(--secondary-color);
 }
 
@@ -167,7 +176,7 @@ main .modal {
     background-color: var(--secondary-color);
     border-radius: 10px;
     flex: 1;
-    margin: 0.5rem;
+    margin: var(--space-xs);
 }
 
 .tasks-modal .tasks-container {
@@ -181,20 +190,26 @@ main .modal {
     list-style-type: none;
 }
 
-.tasks .task {
+.tasks .task,
+.subtasks .subtask {
     display: flex;
     align-items: center;
-    gap: 0.40rem;
+    gap: var(--space-xs);
     border: 1px solid black;
     border-radius: 5px;
-    padding: 0.25rem;
-    margin: 0.5rem;
+    padding: var(--space-xxs);
+    margin: var(--space-xs);
     cursor: pointer;
     transition: transform 0.3s ease;
 }
 
-.tasks .task:hover {
+.tasks .task:hover,
+.subtasks .subtask:hover {
     transform: scale(1.03);
+}
+
+.checkbox {
+    transition: background-color 0.4s ease;
 }
 
 .task .checkbox {
@@ -222,31 +237,30 @@ main .modal {
 
 .task .badges {
     display: flex;
-    gap: 0.5rem;  
-    margin-left: 2rem; 
+    gap: var(--space-xs);
+    margin-left: var(--space-m)
 }
 
 .badges .badge {
     font-size: 0.6rem;
     border: 1px solid black;
     border-radius: 5px;
-    padding: 2.5px;
+    padding: var(--space-xxs);
     color: white;
-    background-color: purple;
+    background-color: var(--badge-color-default);
 }
 
-.priority-badge.P1{
-    background-color: red;
+.priority-badge.P1 {
+    background-color: var(--badge-color-P1);
 }
 
-.priority-badge.P2{
-    background-color: orange;
+.priority-badge.P2 {
+    background-color: var(--badge-color-P2);
 }
 
 .priority-badge.P3 {
-    background-color: dodgerblue;
+    background-color: var(--badge-color-P3);
 }
-
 
 .task .delete-task {
     width: 20px;
@@ -258,7 +272,7 @@ main .modal {
 
 .tasks-modal .new-task-form {
     display: flex;
-    margin: 0.5rem;
+    margin: var(--space-xs);
     gap: var(--space-xs);
 }
 
@@ -267,7 +281,7 @@ main .modal {
     background-color: var(--input-color);
     border: 1px solid black;
     border-radius: 15px;
-    padding: 10px;
+    padding: var(--space-xs);
 }
 
 .new-task-form button {
@@ -278,17 +292,17 @@ main .modal {
 }
 
 main .task-details {
-    padding: 0.5rem;
+    padding: var(--space-xs);
 }
 
 .task-details h1 {
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-xs);
 }
 
 .task-details-form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: var(--space-s);
 }
 
 .task-details-form label,
@@ -302,7 +316,7 @@ main .task-details {
 }
 
 .task-details-form .due-date-priority-section {
-    gap: 1.5rem;
+    gap: var(--space-m);
 }
 
 .task-details-form .note-section {
@@ -310,7 +324,7 @@ main .task-details {
     width: 65%;
 }
 
-.note-section textarea{
+.note-section textarea {
     resize: none;
 }
 
@@ -326,11 +340,11 @@ main .task-details {
 .subtasks .subtask {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: var(--space-xs);
     border: 1px solid black;
     border-radius: 5px;
-    padding: 0.25rem;
-    margin: 0.25rem;
+    padding: var(--space-xxs);
+    margin: var(--space-xxs);
     cursor: pointer;
 }
 
