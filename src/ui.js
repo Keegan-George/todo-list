@@ -17,6 +17,10 @@ const subtasksListElement = document.querySelector("#subtasks");
 
 
 const ui = (() => {
+    /**
+     * Renders the list of todo lists in the sidebar.
+     * @param {Array<Object>} lists - Array of todo list objects.
+     */
     function displayLists(lists) {
         toDoListsElement.replaceChildren();
 
@@ -35,19 +39,33 @@ const ui = (() => {
         });
     }
 
+    /**
+     * Shows the tasks modal.
+     */
     function showTasksModal() {
         tasksModal.classList.remove("hidden");
     }
 
+    /**
+     * Hides the tasks modal and also hides the task details modal.
+     */
     function hideTasksModal() {
         tasksModal.classList.add("hidden");
         hideTaskDetailsModal();
     }
 
+    /**
+    * Displays the title of the currently selected list.
+    * @param {string} title - The list title.
+    */
     function displayListTitle(title) {
         listTitleElement.textContent = title;
     }
 
+    /**
+     * Renders all tasks for the selected list.
+     * @param @param {Array<Object>} tasks - Array of task objects.
+     */
     function displayTasks(tasks) {
         tasksListElement.replaceChildren();
 
@@ -101,14 +119,24 @@ const ui = (() => {
         });
     }
 
+    /**
+     * Shows the task details modal.
+     */
     function showTaskDetailsModal() {
         taskDetailsModal.classList.remove("hidden");
     }
 
+    /**
+     * Hides the task details modal.
+     */
     function hideTaskDetailsModal() {
         taskDetailsModal.classList.add("hidden");
     }
 
+    /**
+     * Displays the details of a selected task inside the task details modal.
+     * @param {Object} task - The task object.
+     */
     function displayTaskDetails(task) {
         taskTitleElement.textContent = task.getTitle();
 
@@ -124,6 +152,10 @@ const ui = (() => {
         displaySubtasks(task.getSubtasks());
     }
 
+    /**
+     * Renders all subtasks for the selected task.
+     * @param {Array<Object>} subtasks - Array of subtask objects.
+     */
     function displaySubtasks(subtasks) {
         subtasksListElement.replaceChildren();
 
@@ -150,7 +182,11 @@ const ui = (() => {
         });
     }
 
-    //Helper Functions    
+    //Helper Functions
+    /**
+     * Creates a trash can icon element.
+     * @returns {HTMLImageElement} The trash icon element.
+     */
     function createTrashIcon() {
         const img = document.createElement("img");
         img.src = trashCanImg;
@@ -158,6 +194,11 @@ const ui = (() => {
         return img;
     }
 
+    /**
+     * Creates a custom checkbox element.
+     * @param {boolean} isChecked - Whether the checkbox should appear checked.
+     * @returns {HTMLDivElement} The checkbox element.
+     */
     function createCheckbox(isChecked) {
         const checkbox = document.createElement("div");
         checkbox.classList.add("checkbox");
@@ -169,6 +210,12 @@ const ui = (() => {
         return checkbox;
     }
 
+    /**
+     * Creates a badge element with a specific type and text.
+     * @param {string} className - The base class name (e.g., "priority", "note").
+     * @param {string} text - The text content of the badge.
+     * @returns {HTMLDivElement} The badge element.
+     */
     function createBadge(className, text) {
         const badge = document.createElement("div");
         badge.classList.add("badge", `${className}-badge`);
