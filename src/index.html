@@ -10,17 +10,19 @@
 
 <body>
     <div class="container">
+        
+        <!-- Sidebar -->
         <aside class="sidebar">
             <section class="user-section">
-                <img src="./img/account-icon.svg" alt="account icon in circle" class="account-icon">
+                <img src="./img/account-icon.svg" alt="account" class="account-icon">
                 <div class="username">Ripley</div>
             </section>
 
             <section class="lists-section">
                 <div class="lists-section-header">
                     <h2 class="lists-section-title">My Lists</h2>
-                    <button type="button" class="add-list">
-                        <img src="./img/new-list-plus.svg" alt="plus icon" class="plus-icon">
+                    <button type="button" class="add-list" aria-label="Add new list">
+                        <img src="./img/new-list-plus.svg" class="add-new-list" alt="">
                     </button>
                 </div>
 
@@ -30,7 +32,7 @@
 
             <div class="new-list-modal hidden">
                 <h3 class="new-list-modal-label">Create New List</h3>
-                <form action="#" class="new-list-form">
+                <form class="new-list-form">
                     <input type="text" id="new-list-name" name="new-list-name">
                     <div class="modal-buttons">
                         <button type="button" class="new-list-cancel">Cancel</button>
@@ -41,29 +43,30 @@
         </aside>
 
         <main>
-            <h2 class="list-title"></h2>
+            <!-- Tasks -->
+            <h1 class="list-title">Select a List</h1>
             <div class="modal tasks-modal hidden">
                 <div class="tasks-container">
                     <ul class="tasks">
                     </ul>
-                    <form action="#" class="new-task-form">
-                        <input type="text" id="new-task-name" name="new-task-name">
-                        <button type="submit" class="new-task-submit">
-                            <img src="./img/arrow-up-submit.svg" alt="arrow up submit icon"
-                                class="arrow-up-submit-icon">
+                    <form class="new-task-form">
+                        <input type="text" id="new-task-name" name="new-task-name" placeholder="Add a task">
+                        <button type="submit" class="new-task-submit" aria-label="Add new task">
+                            <img src="./img/arrow-up-submit.svg" alt="" class="add-new-task">
                         </button>
                     </form>
                 </div>
             </div>
 
+            <!-- Task Details -->
             <div class="modal task-details hidden">
                 <h2 class="task-header"></h2>
 
-                <form action="" class="task-details-form">
+                <form class="task-details-form">
                     <section class="due-date-priority-section">
                         <div class="due-date-control">
                             <label for="due-date">Due Date</label>
-                            <input type="date" id="due-date">
+                            <input type="date" id="due-date" name="due-date">
                         </div>
 
                         <div class="priority-control">
