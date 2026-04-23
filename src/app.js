@@ -26,7 +26,7 @@ const app = (() => {
     let currentListID = null;
     let currentTaskID = null;
 
-    // Helper functions for rebuilding subtasks, tasks and lists
+    // Rebuild helper functions
     function rebuildSubtask(subtask) {
         return createSubtask(subtask.title, subtask.id, subtask.complete);
     }
@@ -43,25 +43,45 @@ const app = (() => {
         return createTodoList(list.title, list.id, tasks);
     }
 
-    //Helper functions for retrieving the current list and current task
+    //Getter functions
+    function getList(id) {
+        return getItemInArray(id, lists);
+    }
+
     function getCurrentList() {
         return getList(currentListID);
     }
 
     function getCurrentTask() {
-        return getCurrentList().getTask(currentTaskID);
+        const list = getCurrentList();
+
+        if (!list) { return; }
+
+        return list.getTask(currentTaskID);
     }
 
-    //Helper funtions for refreshing the UI
+    //UI refresh helper functions
     function refreshTasksUI() {
-        ui.displayTasks(getCurrentList().getTasks());
+        const list = getCurrentList();
+
+        if (!list) { return; }
+
+        ui.displayTasks(list.getTasks());
     }
 
     function refreshSubtasksUI() {
-        ui.displaySubtasks(getCurrentTask().getSubtasks());
+        const task = getCurrentTask();
+
+        if (!task) { return; }
+
+        ui.displaySubtasks(task.getSubtasks());
     }
 
+    function refreshListsUI() {
+        ui.displayLists(lists);
+    }
 
+    //Load and save statate
     function loadLists() {
         const data = JSON.parse(localStorage.getItem("savedLists"));
 
@@ -69,39 +89,34 @@ const app = (() => {
 
         lists = data.map(rebuildList);
 
-        ui.displayLists(lists)
+        refreshListsUI();
     }
-
-    loadLists();
-
 
     function saveLists() {
         localStorage.setItem("savedLists", JSON.stringify(lists));
     }
 
-    function getList(id) {
-        return getItemInArray(id, lists);
-    }
 
     function deleteList(id) {
         removeItemFromArray(id, lists);
     }
 
-
-    function closeNewListModal() {
-        newListModal.classList.toggle("hidden");
+    //New list modal
+    function showNewListModal() {
+        newListModal.classList.remove("hidden");
     }
 
+    function hideNewListModal() {
+        newListModal.classList.add("hidden");
+    }
 
     addListButton.addEventListener("click", () => {
-        closeNewListModal()
+        showNewListModal();
     });
-
 
     newListCancelButton.addEventListener("click", () => {
-        closeNewListModal();
+        hideNewListModal();
     });
-
 
     newListForm.addEventListener("submit", event => {
         event.preventDefault();
@@ -114,12 +129,12 @@ const app = (() => {
         saveLists();
 
         newListForm.reset();
-        newListModal.classList.toggle("hidden");
+        hideNewListModal();
 
-        ui.displayLists(lists);
+        refreshListsUI();
     });
 
-
+    //list interactions
     toDoLists.addEventListener("click", event => {
         const listItem = event.target.closest("li");
 
@@ -132,10 +147,10 @@ const app = (() => {
 
         if (deleteListButton) {
             deleteList(currentListID);
-            currentListID = undefined;
-            currentTaskID = undefined;
+            currentListID = null;
+            currentTaskID = null;
             ui.hideTasksModal();
-            ui.displayLists(lists);
+            refreshListsUI();
             ui.displayListTitle("");
             saveLists();
         }
@@ -148,7 +163,7 @@ const app = (() => {
         ui.hideTaskDetailsModal();
     });
 
-
+    //Task creation
     newTaskForm.addEventListener("submit", event => {
         event.preventDefault();
 
@@ -166,6 +181,7 @@ const app = (() => {
         newTaskForm.reset();
     });
 
+    //task interactions
     tasksListElement.addEventListener("click", event => {
         const taskItem = event.target.closest("li");
 
@@ -181,7 +197,7 @@ const app = (() => {
 
         if (deleteTaskButton) {
             currentList.deleteTask(currentTaskID);
-            currentTaskID = undefined;
+            currentTaskID = null;
             refreshTasksUI();
             ui.hideTaskDetailsModal();
             saveLists();
@@ -197,6 +213,7 @@ const app = (() => {
         }
     });
 
+    //task detail updates
     dueDateInput.addEventListener("change", () => {
         const currentList = getCurrentList();
         const task = getCurrentTask();
@@ -228,6 +245,7 @@ const app = (() => {
         refreshTasksUI();
     });
 
+    //subtask creation
     subtaskInput.addEventListener("change", () => {
         const currentList = getCurrentList();
         const currentTask = getCurrentTask();
@@ -245,6 +263,7 @@ const app = (() => {
         event.preventDefault();
     });
 
+    //subtask interactions
     subtasksListElement.addEventListener("click", event => {
         const listItem = event.target.closest("li");
 
@@ -271,6 +290,8 @@ const app = (() => {
             saveLists();
         }
     });
+
+    loadLists();
 })();
 
 
