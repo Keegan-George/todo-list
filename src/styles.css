@@ -37,6 +37,10 @@
     --badge-color-P1: red;
     --badge-color-P2: orange;
     --badge-color-P3: dodgerblue;
+
+    /* border radius degree*/
+    --border-radius-soft: 0.3rem;
+    --border-radius-strong: 1rem;
 }
 
 body {
@@ -130,7 +134,7 @@ body {
     z-index: 1;
     padding: var(--space-xs);
     gap: var(--space-s);
-    border-radius: 5px;
+    border-radius: var(--border-radius-soft);
     background-color: var(--tertiary-color);
 }
 
@@ -145,7 +149,7 @@ body {
     height: 1.5rem;
     background-color: var(--input-color);
     border: none;
-    border-radius: 5px;
+    border-radius: var(--border-radius-soft);
     padding: var(--space-xs);
     width: 15rem;
 }
@@ -174,7 +178,7 @@ main .list-title {
 
 main .modal {
     background-color: var(--secondary-color);
-    border-radius: 10px;
+    border-radius: var(--border-radius-soft);
     flex: 1;
     margin: var(--space-xs);
 }
@@ -196,7 +200,7 @@ main .modal {
     align-items: center;
     gap: var(--space-xs);
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: var(--border-radius-soft);
     padding: var(--space-xxs);
     margin: var(--space-xs);
     cursor: pointer;
@@ -209,17 +213,22 @@ main .modal {
 }
 
 .checkbox {
-    transition: background-color 0.4s ease;
-}
-
-.task .checkbox {
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid black;
+    background-color: var(--checkbox-color);
+    transition: background-color 0.4s ease;
+}
+
+.task .checkbox {
     width: 25px;
     height: 25px;
-    background-color: var(--checkbox-color);
+}
+
+.subtask .checkbox {
+    width: 20px;
+    height: 20px;
 }
 
 .task .checkbox:hover {
@@ -244,7 +253,7 @@ main .modal {
 .badges .badge {
     font-size: 0.6rem;
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: var(--border-radius-soft);
     padding: var(--space-xxs);
     color: white;
     background-color: var(--badge-color-default);
@@ -280,7 +289,7 @@ main .modal {
     flex: 1;
     background-color: var(--input-color);
     border: 1px solid black;
-    border-radius: 15px;
+    border-radius: var(--border-radius-strong);
     padding: var(--space-xs);
 }
 
@@ -342,7 +351,7 @@ main .task-details {
     align-items: center;
     gap: var(--space-xs);
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: var(--border-radius-soft);
     padding: var(--space-xxs);
     margin: var(--space-xxs);
     cursor: pointer;
