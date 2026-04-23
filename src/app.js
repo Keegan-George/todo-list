@@ -1,5 +1,5 @@
 import { ui } from "./ui.js";
-import { createTask, createSubTask, createTodoList, getItemInArray, removeItemFromArray } from "./todo.js";
+import { createTask, createSubtask, createTodoList, getItemInArray, removeItemFromArray } from "./todo.js";
 
 const app = (() => {
     let lists = [];
@@ -22,7 +22,7 @@ const app = (() => {
 
                     if(task.subtasks.length){
                         task.subtasks.forEach(subtask => {
-                            subtasks.push(createSubTask(subtask.title, subtask.id, subtask.complete));
+                            subtasks.push(createSubtask(subtask.title, subtask.id, subtask.complete));
                         })
                     }
                     tasks.push(createTask(task.title, task.id, task.dueDate, task.priority, task.note, task.complete, subtasks));
@@ -195,10 +195,10 @@ const app = (() => {
     subtaskInput.addEventListener("change", () => {
         const currentList = getList(currentListID);
         const task = currentList.getTask(currentTaskID);
-        task.addSubTask(subtaskInput.value);
+        task.addSubtask(subtaskInput.value);
         saveLists();
 
-        ui.displaySubtasks(task.getSubTasks());
+        ui.displaySubtasks(task.getSubtasks());
         subtaskInput.value = "";
         ui.displayTasks(currentList.getTasks());
     });
@@ -224,13 +224,13 @@ const app = (() => {
 
         if (deleteSubtaskButton) {
             currentTask.deleteSubtask(subtaskID);
-            ui.displaySubtasks(currentTask.getSubTasks());
+            ui.displaySubtasks(currentTask.getSubtasks());
             ui.displayTasks(currentList.getTasks());
             saveLists();
         }
         else if (checkbox) {
             checkbox.classList.toggle("checked");
-            currentTask.getSubTask(subtaskID).toggleComplete();
+            currentTask.getSubtask(subtaskID).toggleComplete();
             saveLists();
         }
     });

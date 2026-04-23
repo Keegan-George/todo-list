@@ -92,7 +92,7 @@ const ui = (() => {
                 badges.appendChild(noteBadge);
             }
 
-            const subtasks = task.getSubTasks();
+            const subtasks = task.getSubtasks();
             const numberOfSubtasks = subtasks.length
             if (numberOfSubtasks) {
                 const subtasksBadge = document.createElement("div");
@@ -142,7 +142,7 @@ const ui = (() => {
         const note = task.getNote();
         noteElement.value = note === undefined ? "" : note;
 
-        displaySubtasks(task.getSubTasks());
+        displaySubtasks(task.getSubtasks());
     }
 
     function displaySubtasks(subtasks) {
