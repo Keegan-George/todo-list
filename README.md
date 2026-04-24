@@ -44,4 +44,3 @@ A live demo is available here: [Todo List](https://keegan-george.github.io/todo-
 - Arrow Up Submit icon: [arrow-up-bold-circle](https://pictogrammers.com/library/mdi/icon/arrow-up-bold-circle/)
 - New List Plus icon: [plus](https://pictogrammers.com/library/mdi/icon/plus/)
 - Trash Can: [trash-can](https://pictogrammers.com/library/mdi/icon/trash-can/)
-
