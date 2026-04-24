@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <title>Todo List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script defer src="main.js"></script></head>
+
+<body>
+    <div class="container">
+        
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <section class="user-section">
+                <img src="dda40cce0d021517f966.svg" alt="account" class="account-icon">
+                <div class="username">Ripley</div>
+            </section>
+
+            <section class="lists-section">
+                <div class="lists-section-header">
+                    <h2 class="lists-section-title">My Lists</h2>
+                    <button type="button" class="add-list" aria-label="Add new list">
+                        <img src="3cffe9a515498593b872.svg" class="add-new-list" alt="">
+                    </button>
+                </div>
+
+                <ul class="todo-lists">
+                </ul>
+            </section>
+
+            <div class="new-list-modal hidden">
+                <h3 class="new-list-modal-label">Create New List</h3>
+                <form class="new-list-form">
+                    <input type="text" id="new-list-name" name="new-list-name">
+                    <div class="modal-buttons">
+                        <button type="button" class="new-list-cancel">Cancel</button>
+                        <button type="submit" class="new-list-submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </aside>
+
+        <main>
+            <!-- Tasks -->
+            <h1 class="list-title">Select a List</h1>
+            <div class="modal tasks-modal hidden">
+                <div class="tasks-container">
+                    <ul class="tasks">
+                    </ul>
+                    <form class="new-task-form">
+                        <input type="text" id="new-task-name" name="new-task-name" placeholder="Add a task">
+                        <button type="submit" class="new-task-submit" aria-label="Add new task">
+                            <img src="e1aed3b830b9edf3221d.svg" alt="" class="add-new-task">
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Task Details -->
+            <div class="modal task-details hidden">
+                <h2 class="task-header"></h2>
+
+                <form class="task-details-form">
+                    <section class="due-date-priority-section">
+                        <div class="due-date-control">
+                            <label for="due-date">Due Date</label>
+                            <input type="date" id="due-date" name="due-date">
+                        </div>
+
+                        <div class="priority-control">
+                            <label for="priority">Priority</label>
+                            <select name="priority" id="priority">
+                                <option value=""></option>
+                                <option value="P1">P1</option>
+                                <option value="P2">P2</option>
+                                <option value="P3">P3</option>
+                                <option value="P4">P4</option>
+                            </select>
+                        </div>
+                    </section>
+
+                    <section class="note-section">
+                        <label for="note">Note</label>
+                        <textarea name="note" id="note" placeholder="Add a note here" rows="5" cols="50"></textarea>
+                    </section>
+
+                    <section class="subtasks-section">
+                        <p>Subtasks</p>
+                        <ul class="subtasks" id="subtasks"></ul>
+                        <input type="text" name="new-subtask-name" id="new-subtask-name" placeholder="Add a subtask">
+                    </section>
+                </form>
+            </div>
+
+        </main>
+    </div>
+</body>
+
+</html>
